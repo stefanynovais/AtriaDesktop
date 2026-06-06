@@ -8,6 +8,7 @@ export default function DashboardLayout({ children }) {
       <Sidebar />
 
       <div className="content">
+         <div className="background-dots"></div>
         <Header />
 
         {children}
