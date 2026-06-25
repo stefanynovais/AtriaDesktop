@@ -1,11 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import {App} from './App.jsx'
-import { AppRouter } from './routes/index.jsx'
+import './assets/global.css'
+import { AppRouter } from './routes/AppRouter.jsx'
 
-//componente que é renderizado pelo root
-createRoot(document.getElementById('root')).render(   
+createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />            
+    <AppRouter />
   </StrictMode>
 )

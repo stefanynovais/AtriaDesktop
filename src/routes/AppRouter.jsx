@@ -1,9 +1,9 @@
-import Login from '../pages/Login'
-import Home from '../pages/Home'
-import Decks from '../pages/Decks'
-import Perfil from '../pages/Perfil'
-import Info from '../pages/Info'
-import { Register } from '../pages/Register'
+import Login from '../pages/Login/Login'
+import Home from '../pages/Home/Home'
+import Decks from '../pages/Decks/Decks'
+import Perfil from '../pages/Perfil/Perfil'
+import Info from '../pages/Info/Info'
+import { Register } from '../pages/Register/Register'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Navigate } from "react-router-dom";
 
@@ -22,4 +22,5 @@ export const AppRouter = () => {
         </Router>
     )
 }
+
 

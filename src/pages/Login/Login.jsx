@@ -3,7 +3,7 @@ import { useState } from "react";
 
 
 import starAtria from '../../assets/star.png';
-import { LayoutComponents } from '../../components/LayoutComponents';
+import { LayoutComponents } from '../../components/LayoutComponents/LayoutComponents/LayoutComponents';
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -61,3 +61,4 @@ export const Login = () => {
 }
 
 export default Login
+

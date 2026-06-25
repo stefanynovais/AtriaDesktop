@@ -1,4 +1,4 @@
-import { LayoutComponents } from "../../components/LayoutComponents"
+import { LayoutComponents } from "../../components/LayoutComponents/LayoutComponents"
 import { useState } from "react";
 import starAtria from '../../assets/star.png';
 import { useNavigate, Link } from 'react-router-dom'

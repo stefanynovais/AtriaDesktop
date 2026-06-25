@@ -1,4 +1,4 @@
-import DashboardLayout from "../../components/DashboardLayout";
+import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
 import "./style.css"
 
 export default function Decks() {
