@@ -4,13 +4,18 @@
 import { prisma } from '../config/database.js'
 
 export const deckService = {
-  getAllDecks: async () => {
-    return prisma.deck.findMany()
+  getAllDecks: async (ownerId) => {
+    return prisma.deck.findMany({
+      where: { ownerId },
+      include: { flashcards: true },
+      orderBy: { createdAt: 'desc' },
+    })
   },
 
-  getDeckById: async (id) => {
-    const deck = await prisma.deck.findUnique({
-      where: { id: Number(id) },
+  getDeckById: async (id, ownerId) => {
+    const deck = await prisma.deck.findFirst({
+      where: { id: Number(id), ownerId },
+      include: { flashcards: true },
     })
     if (!deck) {
       throw new Error('Deck não encontrado')
@@ -18,26 +23,35 @@ export const deckService = {
     return deck
   },
 
-  createDeck: async (deckData) => {
+  createDeck: async (deckData, ownerId) => {
     return prisma.deck.create({
       data: {
         title: deckData.title,
-        cards: deckData.cards,
+        origem: deckData.origem,
+        ownerId,
+        pastaId: deckData.pastaId ?? null,
       },
     })
   },
 
-  updateDeck: async (id, deckData) => {
+  updateDeck: async (id, deckData, ownerId) => {
+    // garante que o deck pertence ao usuário antes de atualizar
+    await deckService.getDeckById(id, ownerId)
+
     return prisma.deck.update({
       where: { id: Number(id) },
       data: {
         title: deckData.title,
-        cards: deckData.cards,
+        origem: deckData.origem,
+        pastaId: deckData.pastaId ?? null,
       },
     })
   },
 
-  deleteDeck: async (id) => {
+  deleteDeck: async (id, ownerId) => {
+    // garante que o deck pertence ao usuário antes de apagar
+    await deckService.getDeckById(id, ownerId)
+
     await prisma.deck.delete({
       where: { id: Number(id) },
     })

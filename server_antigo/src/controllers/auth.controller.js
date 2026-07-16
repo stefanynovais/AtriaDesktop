@@ -22,12 +22,3 @@ export const register = async (req, res, next) => {
     next(error)
   }
 }
-
-export const profile = async (req, res, next) => {
-  try {
-    const result = await authService.getProfile(req.user.id)
-    res.status(200).json(result)
-  } catch (error) {
-    next(error)
-  }
-}

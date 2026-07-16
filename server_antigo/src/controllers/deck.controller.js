@@ -2,11 +2,10 @@ import { deckService } from '../services/deck.service.js'
 
 // Controller que responde às requisições de decks.
 // Ele recebe a requisição, chama o serviço apropriado e envia a resposta.
-// Todas as rotas exigem usuário autenticado (req.user vem do authMiddleware).
 
 export const getAllDecks = async (req, res, next) => {
   try {
-    const decks = await deckService.getAllDecks(req.user.id)
+    const decks = await deckService.getAllDecks()
     res.json(decks)
   } catch (error) {
     next(error)
@@ -16,7 +15,7 @@ export const getAllDecks = async (req, res, next) => {
 export const getDeckById = async (req, res, next) => {
   try {
     const { id } = req.params
-    const deck = await deckService.getDeckById(id, req.user.id)
+    const deck = await deckService.getDeckById(id)
     res.json(deck)
   } catch (error) {
     next(error)
@@ -26,7 +25,7 @@ export const getDeckById = async (req, res, next) => {
 export const createDeck = async (req, res, next) => {
   try {
     const deckData = req.body
-    const newDeck = await deckService.createDeck(deckData, req.user.id)
+    const newDeck = await deckService.createDeck(deckData)
     res.status(201).json(newDeck)
   } catch (error) {
     next(error)
@@ -37,7 +36,7 @@ export const updateDeck = async (req, res, next) => {
   try {
     const { id } = req.params
     const deckData = req.body
-    const updatedDeck = await deckService.updateDeck(id, deckData, req.user.id)
+    const updatedDeck = await deckService.updateDeck(id, deckData)
     res.json(updatedDeck)
   } catch (error) {
     next(error)
@@ -47,7 +46,7 @@ export const updateDeck = async (req, res, next) => {
 export const deleteDeck = async (req, res, next) => {
   try {
     const { id } = req.params
-    await deckService.deleteDeck(id, req.user.id)
+    await deckService.deleteDeck(id)
     res.status(204).send()
   } catch (error) {
     next(error)

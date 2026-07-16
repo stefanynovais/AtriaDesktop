@@ -6,12 +6,9 @@ import {
   updateDeck,
   deleteDeck,
 } from '../controllers/deck.controller.js'
-import { authMiddleware } from '../middlewares/auth.middleware.js'
 
-// Define endpoints para gerenciamento de decks (todas exigem autenticação)
+// Define endpoints para gerenciamento de decks
 const router = express.Router()
-
-router.use(authMiddleware)
 
 router.get('/', getAllDecks)
 router.get('/:id', getDeckById)
