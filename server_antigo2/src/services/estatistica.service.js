@@ -1,8 +1,6 @@
 // Service de estatísticas.
-// Combina dois níveis de dado:
-//   - ResultadoExercicio: resumo agregado por sessão (usado por turma)
-//   - RespostaFlashcard: resposta individual por palavra (usado para
-//     calcular "palavras aprendidas" vs "palavras para revisar")
+// Registra os resultados de exercícios e calcula desempenho agregado
+// por aluno ou por turma.
 
 import { prisma } from '../config/database.js'
 
@@ -20,7 +18,6 @@ export const estatisticaService = {
   },
 
   getEstatisticasAluno: async (userId) => {
-    // --- resumo por sessão (já existia) ---
     const resultados = await prisma.resultadoExercicio.findMany({
       where: { userId },
       include: { deck: { select: { title: true } } },
@@ -32,44 +29,7 @@ export const estatisticaService = {
     const totalCards = resultados.reduce((soma, r) => soma + r.totalCards, 0)
     const aproveitamento = totalCards > 0 ? Number(((totalAcertos / totalCards) * 100).toFixed(1)) : 0
 
-    // --- palavras aprendidas / para revisar (baseado na ÚLTIMA resposta de cada flashcard) ---
-    const respostas = await prisma.respostaFlashcard.findMany({
-      where: { userId },
-      include: { flashcard: { select: { id: true, front: true, back: true } } },
-      orderBy: { respondidoEm: 'desc' },
-    })
-
-    // fica só com a resposta mais recente de cada flashcard
-    const ultimaRespostaPorFlashcard = new Map()
-    for (const resposta of respostas) {
-      if (!ultimaRespostaPorFlashcard.has(resposta.flashcardId)) {
-        ultimaRespostaPorFlashcard.set(resposta.flashcardId, resposta)
-      }
-    }
-
-    const palavrasAprendidas = []
-    const palavrasParaRevisar = []
-
-    for (const resposta of ultimaRespostaPorFlashcard.values()) {
-      const alvo = resposta.acertou ? palavrasAprendidas : palavrasParaRevisar
-      alvo.push({
-        flashcardId: resposta.flashcard.id,
-        front: resposta.flashcard.front,
-        back: resposta.flashcard.back,
-      })
-    }
-
-    return {
-      totalExercicios,
-      totalAcertos,
-      totalCards,
-      aproveitamento,
-      resultados,
-      numeroPalavrasAprendidas: palavrasAprendidas.length,
-      numeroPalavrasParaRevisar: palavrasParaRevisar.length,
-      palavrasAprendidas,
-      palavrasParaRevisar,
-    }
+    return { totalExercicios, totalAcertos, totalCards, aproveitamento, resultados }
   },
 
   getEstatisticasTurma: async (turmaId) => {

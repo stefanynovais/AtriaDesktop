@@ -39,9 +39,6 @@ model User {
 
   // Histórico de exercícios realizados
   resultados ResultadoExercicio[]
-
-  // Histórico de respostas individuais por flashcard (usado nas estatísticas)
-  respostas RespostaFlashcard[]
 }
 
 // -----------------------------
@@ -73,8 +70,6 @@ model Flashcard {
 
   deckId Int
   deck   Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)
-
-  respostas RespostaFlashcard[]
 }
 
 // Pastas para organizar decks por idioma ou outro critério do usuário
@@ -145,20 +140,4 @@ model ResultadoExercicio {
 
   deckId Int
   deck   Deck @relation(fields: [deckId], references: [id])
-}
-
-// Cada linha representa UMA resposta individual do usuário a UM flashcard
-// específico. Usado para calcular "palavras aprendidas" vs "palavras para
-// revisar" na tela de estatísticas gerais (a última resposta de cada
-// flashcard indica o status atual daquela palavra para o usuário).
-model RespostaFlashcard {
-  id           Int      @id @default(autoincrement())
-  acertou      Boolean
-  respondidoEm DateTime @default(now())
-
-  userId Int
-  user   User @relation(fields: [userId], references: [id])
-
-  flashcardId Int
-  flashcard   Flashcard @relation(fields: [flashcardId], references: [id])
 }
