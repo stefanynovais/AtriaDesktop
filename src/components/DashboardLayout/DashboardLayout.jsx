@@ -1,6 +1,6 @@
-import Sidebar from "../Sidebar";
-import Header from "../Header";
-import "./style.css";
+import Sidebar from '../Sidebar/Sidebar';
+import Header from '../Header/Header';
+import './style.css';
 
 export default function DashboardLayout({ children }) {
   return (
@@ -8,7 +8,7 @@ export default function DashboardLayout({ children }) {
       <Sidebar />
 
       <div className="content">
-         <div className="background-dots"></div>
+        <div className="background-dots"></div>
         <Header />
 
         {children}

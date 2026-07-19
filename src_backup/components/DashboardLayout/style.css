@@ -1,0 +1,28 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+
+  position: relative;
+  overflow: hidden;
+
+  background: linear-gradient(to bottom, #542bd7, #200144);
+}
+
+.background-dots {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 2px, transparent 2.5px);
+
+  background-size: 120px 120px, 70px 70px, 180px 180px;
+
+  background-position: 0 0, 30px 40px, 80px 20px;
+}

@@ -28,6 +28,12 @@ model User {
   role      Role     @default(COMUM)
   createdAt DateTime @default(now())
 
+  // Streak (sequência de dias seguidos com pelo menos uma atividade)
+  currentStreak    Int       @default(0)
+  lastActivityDate DateTime?
+
+  // ... (o resto do model continua igual, não mexe)
+
   // Decks importados por este usuário
   decks Deck[]
 
