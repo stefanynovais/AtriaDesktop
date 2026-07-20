@@ -28,6 +28,16 @@ export const createTurma = async (req, res, next) => {
   }
 };
 
+export const updateTurma = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const turmaAtualizada = await turmaService.updateTurma(id, req.body, req.user.id);
+    res.json(turmaAtualizada);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const entrarNaTurma = async (req, res, next) => {
   try {
     const { codigo } = req.body;

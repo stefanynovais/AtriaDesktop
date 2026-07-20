@@ -3,6 +3,7 @@ import {
   getMinhasTurmas,
   getTurmaById,
   createTurma,
+  updateTurma,
   entrarNaTurma,
   vincularDeck,
   deleteTurma,
@@ -16,6 +17,7 @@ router.use(authMiddleware);
 router.get('/', getMinhasTurmas);
 router.get('/:id', getTurmaById);
 router.post('/', requireRole('PROFESSOR'), createTurma);
+router.put('/:id', requireRole('PROFESSOR'), updateTurma);
 router.post('/entrar', entrarNaTurma);
 router.post('/:id/decks', requireRole('PROFESSOR'), vincularDeck);
 router.delete('/:id', requireRole('PROFESSOR'), deleteTurma);

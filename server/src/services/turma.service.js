@@ -59,6 +59,21 @@ export const turmaService = {
     });
   },
 
+  updateTurma: async (turmaId, turmaData, professorId) => {
+    // garante que a turma existe e pertence a esse professor antes de atualizar
+    const turma = await prisma.turma.findFirst({
+      where: { id: Number(turmaId), professorId },
+    });
+    if (!turma) {
+      throw new Error('Turma não encontrada');
+    }
+
+    return prisma.turma.update({
+      where: { id: Number(turmaId) },
+      data: { nome: turmaData.nome },
+    });
+  },
+
   entrarNaTurma: async (codigo, userId) => {
     const turma = await prisma.turma.findUnique({ where: { codigo } });
     if (!turma) {
