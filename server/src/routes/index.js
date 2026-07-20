@@ -7,6 +7,7 @@ import estatisticaRoutes from './estatistica.routes.js';
 import exercicioRoutes from './exercicio.routes.js';
 import respostaRoutes from './resposta.routes.js';
 import streakRoutes from './streak.routes.js';
+import ankiImportRoutes from './ankiImport.routes.js';
 
 // Cria o roteador principal da API e monta as rotas de cada recurso
 const router = express.Router();
@@ -19,5 +20,6 @@ router.use('/estatisticas', estatisticaRoutes);
 router.use('/exercicios', exercicioRoutes);
 router.use('/respostas', respostaRoutes);
 router.use('/streak', streakRoutes);
+router.use('/importar', ankiImportRoutes);
 
 export default router;
