@@ -4,15 +4,18 @@ import Decks from '../pages/Decks/Decks';
 import Perfil from '../pages/Perfil/Perfil';
 import Info from '../pages/Info/Info';
 import Turmas from '../pages/Turmas/Turmas';
+import Landing from '../pages/Landing/Landing';
 import { Register } from '../pages/Register/Register';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 
 export const AppRouter = () => {
   return (
     <Router>
       <Routes>
+        {/* Rota inicial — abre quando a aplicação carrega */}
+        <Route path="/" element={<Landing />} />
+
         {/* Rotas públicas — acessíveis sem estar logado */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
@@ -58,8 +61,6 @@ export const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-
-        <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );

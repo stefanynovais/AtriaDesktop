@@ -1,0 +1,48 @@
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px 0 0;
+  background: linear-gradient(to right, #542BD7, #2C1771);
+  z-index: 1000;
+}
+
+.topbar-logo {
+  height: 160px;
+  margin-left: 10;
+  object-fit: contain;
+}
+
+.topbar-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.topbar-buttons button {
+  border: none;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: 'Outfit', sans-serif;
+  color: #E5E3F2;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.topbar-buttons button:hover {
+  opacity: 0.85;
+}
+
+.btn-login {
+  background-color: #0B66FE;
+}
+
+.btn-signup {
+  background-color: #EE2ADC;
+}
