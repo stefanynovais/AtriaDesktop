@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    >
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="src/styles/styles.css">
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <title>Atria</title>
+</head>
+
+<body>
+
+    <!-- =====================================================
+         HEADER / NAVEGAÇÃO
+    ====================================================== -->
+
+    <header>
+
+        <nav id="navbar">
+
+            <!-- Logo -->
+            <a href="#home">
+                <img
+                    src="assets/logo_atria.png"
+                    alt="Logo Atria"
+                    id="nav_logo"
+                >
+            </a>
+
+            <!-- Menu principal -->
+            <ul id="nav_list">
+
+                <li class="nav-item active">
+                    <a href="#home">
+                        Sobre Nós
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#metodologia">
+                        Metodologia
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#contato">
+                        Contato
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Botão principal -->
+            <a href="#" class="btn-default nav-button">
+                Iniciar
+            </a>
+
+            <!-- Menu mobile -->
+            <button
+                id="mobile_menu"
+                aria-label="Abrir menu"
+            >
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTEÚDO PRINCIPAL
+    ====================================================== -->
+
+    <main id="content">
+
+
+        <!-- =================================================
+             SEÇÃO HOME
+        ================================================== -->
+
+        <section id="home">
+
+            <!-- Forma decorativa de fundo -->
+            <div class="shape"></div>
+
+
+            <!-- Conteúdo textual -->
+            <div id="cta">
+
+                <span class="section-subtitle">
+                    Aprenda de um jeito diferente
+                </span>
+
+                <h1 class="title">
+                    Aprenda idiomas de forma
+                    <span>divertida</span> com Flashcards
+                </h1>
+
+                <p class="description">
+                    A Atria é uma plataforma de aprendizado de idiomas
+                    que utiliza flashcards, interatividade e gamificação
+                    para tornar o processo de estudo mais ágil, eficiente
+                    e envolvente.
+                </p>
+
+                <p class="description">
+                    Aprenda novas palavras, revise conteúdos e fortaleça
+                    sua memória de maneira simples e dinâmica. Transforme
+                    seus momentos de estudo em uma experiência divertida
+                    enquanto acompanha sua evolução.
+                </p>
+
+
+                <!-- Botões -->
+                <div id="cta_buttons">
+
+                    <a href="#" class="btn-default">
+                        Login
+                    </a>
+
+                    <a href="#" class="btn-default">
+                        Cadastrar
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Imagem principal -->
+            <div id="banner">
+
+                <img
+                    src="assets/home.png"
+                    alt="Ilustração do aplicativo Atria"
+                >
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SEÇÃO METODOLOGIA
+        ================================================== -->
+
+        <section id="metodologia">
+
+            <div class="section-content">
+
+
+                <!-- Texto da metodologia -->
+                <div class="section-text">
+
+                    <span class="section-subtitle">
+                        Nossa Metodologia
+                    </span>
+
+                    <h2 class="section-title">
+                        Aprenda de forma
+                        <span>ágil, interativa e eficiente.</span>
+                    </h2>
+
+                    <p class="section-description">
+                        A Atria utiliza flashcards como base para tornar
+                        o aprendizado de novos idiomas mais rápido e
+                        eficiente. Nossa metodologia foi desenvolvida
+                        para facilitar a memorização e ajudar você a
+                        revisar os conteúdos de maneira prática.
+                    </p>
+
+                    <p class="section-description">
+                        Através de uma experiência interativa e
+                        gamificada, estudar se torna mais dinâmico.
+                        Você aprende novas palavras, expressões e
+                        conceitos enquanto acompanha seu progresso.
+                    </p>
+
+                    <p class="section-description">
+                        Dessa forma, o aprendizado deixa de ser uma
+                        tarefa cansativa e se transforma em uma
+                        experiência mais divertida e motivadora.
+                    </p>
+
+                </div>
+
+
+                <!-- Cards da metodologia -->
+                <div class="methodology-cards">
+
+
+                    <!-- Card 1 -->
+                    <div class="methodology-card">
+
+                        <div class="methodology-icon">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+
+                        <h3>
+                            Aprendizado Ágil
+                        </h3>
+
+                        <p>
+                            Estude de maneira rápida e objetiva,
+                            aproveitando melhor o seu tempo.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Card 2 -->
+                    <div class="methodology-card">
+
+                        <div class="methodology-icon">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+
+                        <h3>
+                            Memorização
+                        </h3>
+
+                        <p>
+                            Utilize flashcards para fortalecer sua
+                            memória e facilitar a retenção de novos
+                            conteúdos.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Card 3 -->
+                    <div class="methodology-card">
+
+                        <div class="methodology-icon">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+
+                        <h3>
+                            Gamificação
+                        </h3>
+
+                        <p>
+                            Transforme seus estudos em uma experiência
+                            interativa, divertida e motivadora.
+                        </p>
+
+                    </div>
+
+
+                    <!-- Card 4 -->
+                    <div class="methodology-card">
+
+                        <div class="methodology-icon">
+                            <i class="fa-solid fa-language"></i>
+                        </div>
+
+                        <h3>
+                            Aprendizado de Idiomas
+                        </h3>
+
+                        <p>
+                            Amplie seu vocabulário e desenvolva seus
+                            conhecimentos em diferentes idiomas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SEÇÃO CONTATO
+        ================================================== -->
+
+        <section id="contato">
+
+            <div class="contact-content">
+
+                <span class="section-subtitle">
+                    Entre em contato
+                </span>
+
+                <h2 class="section-title">
+                    Vamos <span>conversar?</span>
+                </h2>
+
+                <p class="section-description">
+                    Tem alguma dúvida, sugestão ou gostaria de saber
+                    mais sobre a Atria? Entre em contato conosco.
+                    Estamos prontos para ajudar você nessa jornada
+                    de aprendizado.
+                </p>
+
+
+                <!-- Opções de contato -->
+                <div class="contact-options">
+
+
+                    <!-- E-mail -->
+                    <a
+                        href="mailto:contato@atria.com"
+                        class="contact-item"
+                    >
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        <div>
+
+                            <h3>
+                                E-mail
+                            </h3>
+
+                            <p>
+                                contato@atria.com
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Instagram -->
+                    <a
+                        href="#"
+                        class="contact-item"
+                    >
+
+                        <i class="fa-brands fa-instagram"></i>
+
+                        <div>
+
+                            <h3>
+                                Instagram
+                            </h3>
+
+                            <p>
+                                @atria
+                            </p>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Suporte -->
+                    <a
+                        href="#"
+                        class="contact-item"
+                    >
+
+                        <i class="fa-solid fa-headset"></i>
+
+                        <div>
+
+                            <h3>
+                                Suporte
+                            </h3>
+
+                            <p>
+                                Fale com nossa equipe
+                            </p>
+
+                        </div>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script src="src/javascript/script.js"></script>
+
+</body>
+
+</html>
