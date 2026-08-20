@@ -3,7 +3,19 @@ import { exercicioService } from '../services/exercicio.service.js'
 export const getCartoesClassicos = async (req, res, next) => {
   try {
     const { deckId } = req.params
-    const resultado = await exercicioService.gerarCartoesClassicos(deckId, req.user.id)
+    const { nivel } = req.query
+    const resultado = await exercicioService.gerarCartoesClassicos(deckId, req.user.id, nivel)
+    res.json(resultado)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const getFlashcardUnico = async (req, res, next) => {
+  try {
+    const { deckId } = req.params
+    const { nivel } = req.query
+    const resultado = await exercicioService.gerarFlashcardUnico(deckId, req.user.id, nivel)
     res.json(resultado)
   } catch (error) {
     next(error)
@@ -13,7 +25,7 @@ export const getCartoesClassicos = async (req, res, next) => {
 export const getVerdadeiroFalso = async (req, res, next) => {
   try {
     const { deckId } = req.params
-    const { nivel } = req.query // FACIL, MEDIO ou DIFICIL (opcional)
+    const { nivel } = req.query
     const pergunta = await exercicioService.gerarVerdadeiroFalso(deckId, req.user.id, nivel)
     res.json(pergunta)
   } catch (error) {

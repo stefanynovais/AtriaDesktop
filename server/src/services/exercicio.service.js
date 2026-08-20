@@ -1,6 +1,6 @@
 // Service de geração de exercícios.
-// Modos disponíveis: Cartões clássicos, Verdadeiro/Falso (com filtro de
-// nível opcional), Jogo da memória, Combinar palavra→definição.
+// Modos disponíveis: Cartões clássicos, Flashcard único (autoavaliação),
+// Verdadeiro/Falso (com filtro de nível), Jogo da memória, Combinar.
 
 import { prisma } from '../config/database.js'
 
@@ -30,10 +30,10 @@ const buscarDeckComFlashcards = async (deckId, ownerId, nivel = null) => {
 
 export const exercicioService = {
   // ------------------------------------------------------------
-  // MODO 1: Cartões clássicos
+  // MODO 1: Cartões clássicos (lista embaralhada inteira)
   // ------------------------------------------------------------
-  gerarCartoesClassicos: async (deckId, ownerId) => {
-    const deck = await buscarDeckComFlashcards(deckId, ownerId)
+  gerarCartoesClassicos: async (deckId, ownerId, nivel = null) => {
+    const deck = await buscarDeckComFlashcards(deckId, ownerId, nivel)
 
     if (deck.flashcards.length === 0) {
       throw new Error('O deck não tem flashcards')
@@ -43,16 +43,39 @@ export const exercicioService = {
       flashcardId: c.id,
       front: c.front,
       back: c.back,
+      nivel: c.nivel,
     }))
 
     return { deckId: deck.id, cartoes }
   },
 
   // ------------------------------------------------------------
-  // MODO 2: Verdadeiro ou Falso
-  // Aceita um "nivel" opcional (FACIL, MEDIO, DIFICIL). Se vier, tanto
-  // o front quanto o distrator errado são sorteados só dentro daquele
-  // nível — mantém a prova consistente (não mistura fácil com difícil).
+  // MODO NOVO: Flashcard único — pega UM card aleatório, com o
+  // verso REAL (não inverte com outro card). Usado no modo de
+  // autoavaliação: o próprio usuário diz se sabia ou não.
+  // ------------------------------------------------------------
+  gerarFlashcardUnico: async (deckId, ownerId, nivel = null) => {
+    const deck = await buscarDeckComFlashcards(deckId, ownerId, nivel)
+
+    if (deck.flashcards.length === 0) {
+      throw new Error(
+        nivel ? `O deck não tem flashcards no nível ${nivel}` : 'O deck não tem flashcards'
+      )
+    }
+
+    const card = sortear(deck.flashcards)
+
+    return {
+      deckId: deck.id,
+      flashcardId: card.id,
+      front: card.front,
+      back: card.back,
+      nivel: card.nivel,
+    }
+  },
+
+  // ------------------------------------------------------------
+  // MODO 2: Verdadeiro ou Falso (mantido, caso queiram usar depois)
   // ------------------------------------------------------------
   gerarVerdadeiroFalso: async (deckId, ownerId, nivel = null) => {
     const deck = await buscarDeckComFlashcards(deckId, ownerId, nivel)

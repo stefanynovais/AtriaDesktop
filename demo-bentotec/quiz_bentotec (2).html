@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Atria — Quiz Bentotec</title>
+<style>
+  :root {
+    --roxo-escuro: #1a1033;
+    --roxo: #3a1f6b;
+    --roxo-claro: #6c3fd6;
+    --verde: #3fe216;
+    --vermelho: #e21616;
+    --amarelo: #ffcc00;
+    --branco: #f5f0ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: radial-gradient(circle at 50% 20%, var(--roxo) 0%, var(--roxo-escuro) 70%);
+    color: var(--branco);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .tela {
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px;
+  }
+
+  .tela.ativa { display: flex; }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px var(--roxo-claro);
+  }
+
+  p.subtitulo {
+    font-size: 1.4rem;
+    color: #cbb8ff;
+    margin-bottom: 40px;
+    max-width: 700px;
+  }
+
+  /* ---------- Tela 1: conexão USB ---------- */
+  .icone-usb {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    animation: pulsar 2s ease-in-out infinite;
+  }
+
+  @keyframes pulsar {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .status-conexao {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    padding: 12px 24px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.08);
+  }
+
+  .status-conexao.ok { background: rgba(63,226,22,0.2); color: var(--verde); }
+  .status-conexao.erro { background: rgba(226,22,22,0.2); color: #ff8080; }
+
+  /* ---------- Botões ---------- */
+  button {
+    font-family: inherit;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 18px 40px;
+    margin: 12px;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    background: var(--roxo-claro);
+    color: white;
+    box-shadow: 0 6px 0 #4a2a9e;
+  }
+
+  button:hover { transform: translateY(-2px); }
+  button:active { transform: translateY(4px); box-shadow: 0 2px 0 #4a2a9e; }
+  button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .botoes-nivel button { min-width: 220px; font-size: 1.5rem; padding: 26px; }
+  .btn-facil   { background: #2e8b3f; box-shadow: 0 6px 0 #1e5c29; }
+  .btn-medio   { background: #c98a1f; box-shadow: 0 6px 0 #8a5e12; }
+  .btn-dificil { background: #b3241f; box-shadow: 0 6px 0 #7a1712; }
+
+  /* ---------- Tela do quiz ---------- */
+  .cronometro {
+    font-size: 6rem;
+    font-weight: 800;
+    margin: 10px 0 30px;
+    transition: color 0.3s, transform 0.15s;
+  }
+  .cronometro.tenso { color: var(--vermelho); }
+  .cronometro.batendo { transform: scale(1.15); }
+
+  .barra-tempo-container {
+    width: 500px;
+    max-width: 80vw;
+    height: 16px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .barra-tempo {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, var(--verde), var(--amarelo), var(--vermelho));
+    transition: width 1s linear;
+  }
+
+  .card-pergunta {
+    background: rgba(255,255,255,0.07);
+    border: 2px solid var(--roxo-claro);
+    border-radius: 24px;
+    padding: 40px 60px;
+    margin-bottom: 30px;
+    min-width: 500px;
+  }
+
+  .card-pergunta .frase-front {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .card-pergunta .frase-back {
+    font-size: 1.8rem;
+    color: #cbb8ff;
+  }
+
+  .nivel-tag {
+    display: inline-block;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+  .nivel-tag.FACIL { background: #2e8b3f; }
+  .nivel-tag.MEDIO { background: #c98a1f; }
+  .nivel-tag.DIFICIL { background: #b3241f; }
+
+  .instrucao-fisica {
+    font-size: 1.1rem;
+    color: #a893e0;
+    margin-top: 10px;
+  }
+
+  /* ---------- Tela de resultado ---------- */
+  .resultado-icone { font-size: 8rem; margin-bottom: 10px; }
+  .resultado-texto { font-size: 3rem; font-weight: 800; margin-bottom: 10px; }
+  .resultado-texto.certo { color: var(--verde); }
+  .resultado-texto.errado { color: var(--vermelho); }
+
+  .placar {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    font-size: 1.1rem;
+    background: rgba(255,255,255,0.08);
+    padding: 10px 20px;
+    border-radius: 14px;
+  }
+
+  .rodape-nivel {
+    position: fixed;
+    bottom: 24px;
+    font-size: 1rem;
+    color: #a893e0;
+  }
+</style>
+</head>
+<body>
+
+<div class="placar" id="placar" style="display:none;">Acertos: <span id="placarAcertos">0</span> / <span id="placarTotal">0</span></div>
+
+<!-- TELA 1: Conexão USB -->
+<div class="tela ativa" id="tela-usb">
+  <div class="icone-usb">🔌</div>
+  <h1>Conecte o Dispositivo</h1>
+  <p class="subtitulo">Antes de começar, conecte o cabo USB do quiz físico (ESP32) ao computador e clique no botão abaixo.</p>
+  <button id="btnConectar" onclick="conectarUSB()">Conectar via USB</button>
+  <div class="status-conexao" id="statusConexao">Aguardando conexão...</div>
+  <button onclick="ativarModoTeste()" style="background:#444; box-shadow:0 6px 0 #222; font-size:1rem; margin-top:30px;">
+    🧪 Testar sem hardware (modo desenvolvimento)
+  </button>
+</div>
+
+<!-- TELA 2: Seleção de nível -->
+<div class="tela" id="tela-nivel">
+  <h1>Escolha seu nível</h1>
+  <p class="subtitulo">Selecione o quão confiante você está no seu inglês.</p>
+  <div class="botoes-nivel">
+    <button class="btn-facil" onclick="iniciarQuiz('FACIL')">🟢 Fácil</button>
+    <button class="btn-medio" onclick="iniciarQuiz('MEDIO')">🟡 Médio</button>
+    <button class="btn-dificil" onclick="iniciarQuiz('DIFICIL')">🔴 Difícil</button>
+  </div>
+</div>
+
+<!-- TELA 3: Pergunta -->
+<div class="tela" id="tela-pergunta">
+  <div class="nivel-tag" id="tagNivel">NÍVEL</div>
+  <div class="cronometro" id="cronometro">10</div>
+  <div class="barra-tempo-container"><div class="barra-tempo" id="barraTempo"></div></div>
+  <div class="card-pergunta">
+    <div class="frase-front" id="fraseFront">...</div>
+    <div class="frase-back" id="fraseBack">...</div>
+  </div>
+  <p class="instrucao-fisica" id="instrucaoFisica">O par está certo? Aperte VERDADEIRO ou FALSO.</p>
+  <div id="botoesSimulados" style="display:none; margin-top: 20px;">
+    <button class="btn-facil" onclick="simularResposta('V')">✅ Simular VERDADEIRO</button>
+    <button class="btn-dificil" onclick="simularResposta('F')">❌ Simular FALSO</button>
+  </div>
+</div>
+
+<!-- TELA 4: Resultado -->
+<div class="tela" id="tela-resultado">
+  <div class="resultado-icone" id="resultadoIcone">🎉</div>
+  <div class="resultado-texto" id="resultadoTexto">CORRETO!</div>
+  <button onclick="proximaPergunta()">Próxima pergunta</button>
+  <button onclick="voltarNiveis()" style="background:#555; box-shadow:0 6px 0 #333;">Trocar nível</button>
+</div>
+
+<!-- TELA 5: Tempo esgotado -->
+<div class="tela" id="tela-tempo-esgotado">
+  <div class="resultado-icone">⏰</div>
+  <div class="resultado-texto errado">TEMPO ESGOTADO</div>
+  <p class="subtitulo">A resposta era: <strong id="respostaCorretaTexto"></strong></p>
+  <button onclick="proximaPergunta()">Próxima pergunta</button>
+  <button onclick="voltarNiveis()" style="background:#555; box-shadow:0 6px 0 #333;">Trocar nível</button>
+</div>
+
+<div class="rodape-nivel" id="rodapeNivel"></div>
+
+<script>
+// ============================================================
+// CONFIGURAÇÃO — ajusta esses valores antes do dia da Bentotec
+// ============================================================
+const API_URL = 'http://localhost:4000/api';
+const EMAIL_PROFESSOR = 'professor@teste.com';
+const SENHA = '123456';
+const DECK_ID = 1; // id do deck "Quiz Bentotec - Inglês"
+const TEMPO_LIMITE = 10; // segundos
+
+// ============================================================
+// ESTADO GLOBAL
+// ============================================================
+let token = null;
+let porta = null;
+let writer = null;
+let reader = null;
+let nivelAtual = null;
+let perguntaAtual = null;
+let cronometroInterval = null;
+let flipInterval = null;
+let segundosRestantes = TEMPO_LIMITE;
+let acertos = 0;
+let total = 0;
+let audioCtx = null;
+let modoTeste = false;
+
+// ============================================================
+// MODO TESTE — pula a conexão USB, simula os botões na tela
+// ============================================================
+function ativarModoTeste() {
+  modoTeste = true;
+  destravarAudio();
+  document.getElementById('botoesSimulados').style.display = 'block';
+  document.getElementById('instrucaoFisica').textContent = 'MODO TESTE — use os botões abaixo pra simular as respostas físicas';
+  mostrarTela('tela-nivel');
+  document.getElementById('placar').style.display = 'block';
+}
+
+// Cria/destrava o AudioContext dentro de um clique real do usuário —
+// os navegadores bloqueiam áudio criado fora desse contexto.
+function destravarAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+}
+
+function simularResposta(botao) {
+  clearInterval(cronometroInterval);
+  clearInterval(flipInterval);
+  const acertou = botao === 'V' ? perguntaAtual.correto : !perguntaAtual.correto;
+  registrarResposta(acertou, false);
+}
+
+// ============================================================
+// TROCA DE TELAS
+// ============================================================
+function mostrarTela(id) {
+  document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
+  document.getElementById(id).classList.add('ativa');
+}
+
+// ============================================================
+// ÁUDIO — tique-taque que acelera e sobe de tom conforme o tempo acaba
+// ============================================================
+function tocarBeep(frequencia, duracaoMs) {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = 'square';
+  osc.frequency.value = frequencia;
+
+  const agora = audioCtx.currentTime;
+  gain.gain.setValueAtTime(0.2, agora); // ponto de partida explícito, senão o ramp abaixo pode falhar
+  gain.gain.exponentialRampToValueAtTime(0.001, agora + duracaoMs / 1000);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+  osc.start(agora);
+  osc.stop(agora + duracaoMs / 1000);
+}
+
+function tocarSomFinal(acertou) {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (acertou) {
+    [523, 659, 784].forEach((freq, i) => {
+      setTimeout(() => tocarBeep(freq, 200), i * 120);
+    });
+  } else {
+    [300, 200].forEach((freq, i) => {
+      setTimeout(() => tocarBeep(freq, 300), i * 150);
+    });
+  }
+}
+
+// ============================================================
+// USB / WEB SERIAL API
+// ============================================================
+async function conectarUSB() {
+  const statusEl = document.getElementById('statusConexao');
+  const btn = document.getElementById('btnConectar');
+
+  if (!('serial' in navigator)) {
+    statusEl.textContent = 'Seu navegador não suporta Web Serial. Use Google Chrome ou Microsoft Edge.';
+    statusEl.className = 'status-conexao erro';
+    return;
+  }
+
+  try {
+    btn.disabled = true;
+    statusEl.textContent = 'Aguardando você selecionar a porta...';
+    destravarAudio();
+
+    porta = await navigator.serial.requestPort();
+    await porta.open({ baudRate: 9600 });
+
+    const textEncoder = new TextEncoderStream();
+    textEncoder.readable.pipeTo(porta.writable);
+    writer = textEncoder.writable.getWriter();
+
+    const textDecoder = new TextDecoderStream();
+    porta.readable.pipeTo(textDecoder.writable);
+    reader = textDecoder.readable.getReader();
+
+    statusEl.textContent = '✅ Dispositivo conectado com sucesso!';
+    statusEl.className = 'status-conexao ok';
+
+    escutarSerial();
+
+    setTimeout(() => {
+      mostrarTela('tela-nivel');
+      document.getElementById('placar').style.display = 'block';
+    }, 1200);
+
+  } catch (err) {
+    console.error(err);
+    statusEl.textContent = 'Não foi possível conectar. Confira o cabo USB e tente de novo.';
+    statusEl.className = 'status-conexao erro';
+    btn.disabled = false;
+  }
+}
+
+// Fica lendo tudo que o Arduino manda pela serial, linha por linha
+let bufferSerial = '';
+async function escutarSerial() {
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      bufferSerial += value;
+
+      let indiceQuebra;
+      while ((indiceQuebra = bufferSerial.indexOf('\n')) >= 0) {
+        const linha = bufferSerial.slice(0, indiceQuebra).trim();
+        bufferSerial = bufferSerial.slice(indiceQuebra + 1);
+        if (linha) processarLinhaArduino(linha);
+      }
+    }
+  } catch (err) {
+    console.error('Erro lendo serial:', err);
+  }
+}
+
+function processarLinhaArduino(linha) {
+  console.log('Arduino disse:', linha);
+  // Formato esperado: R;V;1  ou  R;F;0  ou  R;TIMEOUT;0
+  if (linha.startsWith('R;')) {
+    const partes = linha.split(';');
+    const botao = partes[1]; // V, F ou TIMEOUT
+    const acertouStr = partes[2]; // "1" ou "0"
+    registrarResposta(botao !== 'TIMEOUT' ? acertouStr === '1' : false, botao === 'TIMEOUT');
+  }
+}
+
+async function enviarParaArduino(mensagem) {
+  if (!writer) return;
+  await writer.write(mensagem + '\n');
+}
+
+// ============================================================
+// LOGIN NA API (feito uma vez, silenciosamente, ao carregar a página)
+// ============================================================
+async function fazerLogin() {
+  const resp = await fetch(`${API_URL}/auth/login`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: EMAIL_PROFESSOR, password: SENHA }),
+  });
+  const dados = await resp.json();
+  token = dados.token;
+}
+
+// ============================================================
+// FLUXO DO QUIZ
+// ============================================================
+async function iniciarQuiz(nivel) {
+  nivelAtual = nivel;
+  document.getElementById('rodapeNivel').textContent = `Nível atual: ${nivel}`;
+  await proximaPergunta();
+}
+
+async function proximaPergunta() {
+  clearInterval(cronometroInterval);
+  clearInterval(flipInterval);
+  mostrarTela('tela-pergunta');
+
+  const tag = document.getElementById('tagNivel');
+  tag.textContent = nivelAtual;
+  tag.className = 'nivel-tag ' + nivelAtual;
+
+  document.getElementById('fraseFront').textContent = 'Carregando...';
+  document.getElementById('fraseBack').textContent = '';
+
+  try {
+    const resp = await fetch(`${API_URL}/exercicios/verdadeiro-falso/${DECK_ID}?nivel=${nivelAtual}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    perguntaAtual = await resp.json();
+
+    document.getElementById('fraseFront').textContent = perguntaAtual.front;
+    document.getElementById('fraseBack').textContent = ''; // começa só com a frente
+
+    // manda pro dispositivo mostrar no LCD também (corta pra 16 caracteres)
+    const linha1 = (perguntaAtual.front || '').substring(0, 16);
+    const linha2 = (perguntaAtual.backMostrado || '').substring(0, 16);
+    const gabarito = perguntaAtual.correto ? '1' : '0';
+    await enviarParaArduino(`Q;${gabarito};${linha1};${linha2}`);
+
+    iniciarCronometro();
+    iniciarFlipCiclo();
+  } catch (err) {
+    console.error(err);
+    document.getElementById('fraseFront').textContent = 'Erro ao buscar pergunta. Confira se a API está rodando.';
+  }
+}
+
+// Alterna frente sozinha <-> frente+verso a cada 3 segundos, estilo flashcard
+function iniciarFlipCiclo() {
+  let mostrandoVerso = false;
+  flipInterval = setInterval(() => {
+    mostrandoVerso = !mostrandoVerso;
+    document.getElementById('fraseBack').textContent = mostrandoVerso ? perguntaAtual.backMostrado : '';
+  }, 3000);
+}
+
+function iniciarCronometro() {
+  segundosRestantes = TEMPO_LIMITE;
+  const cronoEl = document.getElementById('cronometro');
+  const barraEl = document.getElementById('barraTempo');
+  cronoEl.textContent = segundosRestantes;
+  cronoEl.className = 'cronometro';
+  barraEl.style.width = '100%';
+
+  cronometroInterval = setInterval(() => {
+    segundosRestantes--;
+    cronoEl.textContent = segundosRestantes;
+    barraEl.style.width = (segundosRestantes / TEMPO_LIMITE * 100) + '%';
+
+    // efeito de "batida" visual toda vez que o número muda
+    cronoEl.classList.add('batendo');
+    setTimeout(() => cronoEl.classList.remove('batendo'), 150);
+
+    // sonoridade de tensão: acelera e sobe de tom nos últimos segundos
+    if (segundosRestantes <= 3 && segundosRestantes > 0) {
+      cronoEl.classList.add('tenso');
+      tocarBeep(440 + (3 - segundosRestantes) * 220, 180);
+    } else if (segundosRestantes > 3) {
+      tocarBeep(330, 100);
+    }
+
+    if (segundosRestantes <= 0) {
+      clearInterval(cronometroInterval);
+      clearInterval(flipInterval);
+      // Com hardware físico conectado, é o Arduino quem detecta o timeout
+      // dele mesmo e manda "R;TIMEOUT;0" pela serial. Em modo teste (sem
+      // hardware), simulamos isso aqui direto.
+      if (modoTeste) {
+        registrarResposta(false, true);
+      }
+    }
+  }, 1000);
+}
+
+async function registrarResposta(acertou, foiTimeout) {
+  clearInterval(cronometroInterval);
+  clearInterval(flipInterval);
+
+  // Tempo esgotado: mostra tela dedicada, não conta no placar, não salva resposta
+  if (foiTimeout) {
+    document.getElementById('respostaCorretaTexto').textContent =
+      perguntaAtual.correto
+        ? `Verdadeiro (${perguntaAtual.front} = ${perguntaAtual.backMostrado})`
+        : `Falso (${perguntaAtual.front} não é ${perguntaAtual.backMostrado})`;
+    tocarSomFinal(false);
+    mostrarTela('tela-tempo-esgotado');
+    return;
+  }
+
+  total++;
+  if (acertou) acertos++;
+
+  document.getElementById('placarAcertos').textContent = acertos;
+  document.getElementById('placarTotal').textContent = total;
+
+  // salva no backend
+  try {
+    await fetch(`${API_URL}/respostas`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ flashcardId: perguntaAtual.flashcardId, acertou }),
+    });
+  } catch (err) {
+    console.error('Erro ao salvar resposta:', err);
+  }
+
+  const icone = document.getElementById('resultadoIcone');
+  const texto = document.getElementById('resultadoTexto');
+
+  if (acertou) {
+    icone.textContent = '🎉';
+    texto.textContent = 'CORRETO!';
+    texto.className = 'resultado-texto certo';
+  } else {
+    icone.textContent = '❌';
+    texto.textContent = 'ERRADO';
+    texto.className = 'resultado-texto errado';
+  }
+
+  tocarSomFinal(acertou);
+  mostrarTela('tela-resultado');
+}
+
+function voltarNiveis() {
+  mostrarTela('tela-nivel');
+}
+
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+fazerLogin();
+</script>
+</body>
+</html>
