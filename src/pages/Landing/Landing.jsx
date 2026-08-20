@@ -12,7 +12,7 @@ function Landing() {
 
       <section className="topbg">
         <h1>
-          learn with
+          Learn with
           <br />
           flashcards!
         </h1>
@@ -32,8 +32,12 @@ function Landing() {
       <section className="white split-section">
         <img src={cardsImg} alt="Flashcards" className="split-image" />
         <div className="split-content">
-          <h1>Atria</h1>
-          <p>texto teste</p>
+          <h1>Aprenda do seu jeito!</h1>
+          <p>
+            Com o Atria, é possível utilizar as técnicas de memorização com flashcards e retenção de
+            conteúdo através de jogos com o seu próprio material. Aprenda de forma dinâmica e no seu
+            próprio ritmo!
+          </p>
         </div>
         <div className="wave">
           <svg
@@ -50,25 +54,35 @@ function Landing() {
         </div>
       </section>
 
-      <section className="white split-section">
+      <section className="white split-section split-reverse-stack">
         <img src={miniTelaImg} alt="Painel de progresso" className="split-image" />
         <div className="split-content">
-          <h1>Atria</h1>
-          <p>texto teste</p>
+          <h1>
+            Acompanhe seu progresso
+            <br />
+            com os Streaks!
+          </h1>
         </div>
       </section>
 
       <section className="white split-section">
         <img src={moneyImg} alt="Economia" className="split-image" />
         <div className="split-content">
-          <h1>Atria</h1>
-          <p>texto teste</p>
+          <h1>Livre de transações!</h1>
+          <p>
+            No Atria, não há barreiras para te impedir de atingir seu aprendizado personalizado
+            ideal, isso inclui barreiras financeiras, o site é 100% gratuiito, tendo como foco a
+            retenção de conteúdo do estudante e não o lucro.
+          </p>
         </div>
       </section>
 
       <section className="bottombg">
-        <h1>Atria</h1>
-        <p>texto teste</p>
+        <h1>
+          Comece sua jornada de
+          <br />
+          aprendizado aqui!
+        </h1>
       </section>
     </>
   );
