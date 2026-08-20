@@ -13,7 +13,8 @@ export const getCartoesClassicos = async (req, res, next) => {
 export const getVerdadeiroFalso = async (req, res, next) => {
   try {
     const { deckId } = req.params
-    const pergunta = await exercicioService.gerarVerdadeiroFalso(deckId, req.user.id)
+    const { nivel } = req.query // FACIL, MEDIO ou DIFICIL (opcional)
+    const pergunta = await exercicioService.gerarVerdadeiroFalso(deckId, req.user.id, nivel)
     res.json(pergunta)
   } catch (error) {
     next(error)

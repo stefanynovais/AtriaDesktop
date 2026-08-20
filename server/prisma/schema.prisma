@@ -16,6 +16,12 @@ enum Role {
   PROFESSOR  // perfil institucional
 }
 
+enum Nivel {
+  FACIL
+  MEDIO
+  DIFICIL
+}
+
 // -----------------------------
 // Usuário
 // -----------------------------
@@ -76,6 +82,7 @@ model Flashcard {
   id     Int    @id @default(autoincrement())
   front  String // pergunta / frente do card
   back   String // resposta / verso do card
+  nivel  Nivel? // para não quebrar flashcards antigos sem nível 
 
   deckId Int
   deck   Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)

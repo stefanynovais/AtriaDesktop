@@ -1,6 +1,9 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('COMUM', 'PROFESSOR');
 
+-- CreateEnum
+CREATE TYPE "Nivel" AS ENUM ('FACIL', 'MEDIO', 'DIFICIL');
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -9,6 +12,8 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "role" "Role" NOT NULL DEFAULT 'COMUM',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "currentStreak" INTEGER NOT NULL DEFAULT 0,
+    "lastActivityDate" TIMESTAMP(3),
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -30,6 +35,7 @@ CREATE TABLE "Flashcard" (
     "id" SERIAL NOT NULL,
     "front" TEXT NOT NULL,
     "back" TEXT NOT NULL,
+    "nivel" "Nivel",
     "deckId" INTEGER NOT NULL,
 
     CONSTRAINT "Flashcard_pkey" PRIMARY KEY ("id")
