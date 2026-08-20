@@ -1,13 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
 
-*{
+@font-face {
+  font-family: 'Rosting Gapertas';
+  src: url('./Fonts/RostingGapertas-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body, html {
-    font-family: 'Outfit', sans-serif;
+body,
+html {
+  font-family: 'Outfit', sans-serif;
 }
 
 .login-form {
@@ -20,14 +29,13 @@ body, html {
 .login-form-title {
   font-size: 28px;
 
-
   margin-bottom: 25px;
 
   color: azure;
 }
 
 .login-form-title img {
-  width: 90px; 
+  width: 90px;
   margin-top: 15px;
   margin-bottom: 25px;
 
@@ -43,7 +51,7 @@ body, html {
 
 .input {
   font-size: 15px;
-  color: #FFF;
+  color: #fff;
   line-height: 1.2;
 
   display: block;
@@ -67,11 +75,11 @@ body, html {
   left: 0;
 
   pointer-events: none;
-  color:#adadad;
+  color: #adadad;
 }
 
 .focus-input::before {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   bottom: -2px;
@@ -86,7 +94,7 @@ body, html {
   background: linear-gradient(to left, #21d4fd, #b721ff);
 }
 
-.focus-input::after{
+.focus-input::after {
   font-size: 15px;
   color: #999999;
   line-height: 1.2;
@@ -96,21 +104,20 @@ body, html {
   width: 100%;
   position: absolute;
   top: 16px;
-  left: 0; 
+  left: 0;
 
   padding-left: 5px;
 
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;
   -moz-transition: all 0.4s;
-  
 }
 
 .input:focus {
   outline: 0;
 }
 
-.input:focus + .focus-input::after{
+.input:focus + .focus-input::after {
   top: -15px;
 }
 
@@ -118,11 +125,13 @@ body, html {
   width: 100%;
 }
 
-.has-val + .focus-input::after{ /*quando tiver um conteúdo dentro do input, ele vai permanecer com esse top*/
+.has-val + .focus-input::after {
+  /*quando tiver um conteúdo dentro do input, ele vai permanecer com esse top*/
   top: -15px;
 }
 
-.has-val + .focus-input::before{ /*permanece com a cor*/
+.has-val + .focus-input::before {
+  /*permanece com a cor*/
   width: 100%;
 }
 
@@ -136,14 +145,14 @@ body, html {
 
 .login-form-btn {
   font-size: 15px;
-    font-weight: bold;
+  font-weight: bold;
 
   border: none;
   border-radius: 10px;
   color: #fff;
 
-  line-height:  1.2;
-  
+  line-height: 1.2;
+
   text-transform: uppercase;
   display: flex;
   justify-content: center;
@@ -163,7 +172,7 @@ body, html {
   cursor: pointer;
 }
 
-.text-center{
+.text-center {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -171,7 +180,7 @@ body, html {
   margin-top: 50px;
 }
 
-.txt1{
+.txt1 {
   font-size: 14px;
   color: #adadad;
   line-height: 1.5;
@@ -179,7 +188,7 @@ body, html {
   text-decoration: none;
 }
 
-.txt2{
+.txt2 {
   font-size: 14px;
   color: #6a7dfe;
   line-height: 1.5;
