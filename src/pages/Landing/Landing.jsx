@@ -1,6 +1,7 @@
 import './Landing.css';
 import TopBar from '../../components/TopBar/TopBar';
 import LiquidGlass from '../../components/LiquidGlass/LiquidGlass';
+import BottomBar from '../../components/BottomBar/BottomBar';
 import cardsImg from '../../assets/Cards.png';
 import miniTelaImg from '../../assets/Mini_tela.png';
 import moneyImg from '../../assets/money.png';
@@ -83,6 +84,7 @@ function Landing() {
           <br />
           aprendizado aqui!
         </h1>
+        <BottomBar />
       </section>
     </>
   );
