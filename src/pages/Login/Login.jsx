@@ -1,20 +1,22 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-
-import starAtria from '../../assets/star.png';
 import { LayoutComponents } from '../../components/LayoutComponents/LayoutComponents';
 import { useAuth } from '../../contexts/AuthContext';
+import { etecs } from '../../data/etecs';
+import './Login.css';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [tipoConta, setTipoConta] = useState('comum');
+  const [codigoEtec, setCodigoEtec] = useState('');
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   const handleLogin = async (e) => {
-    e.preventDefault(); // evita recarregar a página
+    e.preventDefault();
     setErro('');
     setCarregando(true);
 
@@ -22,7 +24,6 @@ export const Login = () => {
       await login(email, password);
       navigate('/home');
     } catch (error) {
-      // erro.response.data.message vem da própria API (ex: "Credenciais inválidas")
       setErro(error.response?.data?.message || 'Não foi possível fazer login. Tente novamente.');
     } finally {
       setCarregando(false);
@@ -30,51 +31,80 @@ export const Login = () => {
   };
 
   return (
-    <LayoutComponents>
-      <form className="login-form" onSubmit={handleLogin}>
-        <span className="login-form-title"> Seja bem-vindo ao Atria! </span>
+    <div className="login-page">
+      <LayoutComponents>
+        <form className="login-form" onSubmit={handleLogin}>
+          <span className="login-form-title">Login</span>
 
-        <span className="login-form-title">
-          <img src={starAtria} alt="ATRIA" />
-        </span>
+          <div className="form-columns">
+            <div className="form-column">
+              <div className="input-field-box">
+                <label>Nome ou email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-        <div className="wrap-input">
-          <input
-            className={email !== '' ? 'has-val input' : 'input'}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <span className="focus-input" data-placeholder="Email"></span>
-        </div>
+              <div className="input-field-box">
+                <label>Senha</label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+            </div>
 
-        <div className="wrap-input">
-          <input
-            className={password !== '' ? 'has-val input' : 'input'}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <span className="focus-input" data-placeholder="Password"></span>
-        </div>
+            <div className="form-column">
+              <div className="input-field-box">
+                <label>Tipo de conta</label>
+                <select
+                  value={tipoConta}
+                  onChange={(e) => setTipoConta(e.target.value)}
+                >
+                  <option value="comum">Comum</option>
+                  <option value="institucional">Institucional</option>
+                </select>
+              </div>
 
-        {erro && <span className="login-error">{erro}</span>}
+              <div className="input-field-box">
+                <label>Código da ETEC</label>
+                <select
+                  value={codigoEtec}
+                  onChange={(e) => setCodigoEtec(e.target.value)}
+                  disabled={tipoConta !== 'institucional'}
+                >
+                  <option value="">Selecione</option>
+                  {etecs.map((etec) => (
+                    <option key={etec.codigo} value={etec.codigo}>
+                      {etec.codigo} - {etec.nome}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </div>
 
-        <div className="container-login-form-btn">
-          <button className="login-form-btn" type="submit" disabled={carregando}>
-            {carregando ? 'Entrando...' : 'Login'}
-          </button>
-        </div>
+          {erro && <span className="login-error">{erro}</span>}
 
-        <div className="text-center">
-          <span className="txt1">Não possui conta?</span>
-          <Link to="/register" className="txt2">
-            {' '}
-            Criar conta.
-          </Link>
-        </div>
-      </form>
-    </LayoutComponents>
+          <div className="container-login-form-btn">
+            <button className="login-form-btn" type="submit" disabled={carregando}>
+              {carregando ? 'Entrando...' : 'Login'}
+            </button>
+          </div>
+
+          <div className="text-center">
+            <span className="txt1">Não possui conta?</span>
+            <Link to="/register" className="txt2">
+              {' '}
+              Criar conta.
+            </Link>
+          </div>
+        </form>
+      </LayoutComponents>
+    </div>
   );
 };
 

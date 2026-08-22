@@ -1,27 +1,30 @@
- .container{
+.container {
   width: 100%;
   margin: 0 auto;
 }
 
 .container-login {
-    width: 100%;
-    min-height: 100vh;
-    
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
+  width: 100%;
+  min-height: 100vh;
 
-    background-color: #111;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+
+  background-color: transparent;
 }
 
 .wrap-login {
-  width: 450px;  
+  position: relative;
+  z-index: 1;
+
+  width: 1149px;
   min-height: 520px;
 
-  background-color: #333;
-  border-radius: 15px;
+  background: linear-gradient(to bottom, #542BD7, #957DE3);
+  border-radius: 59px;
 
   overflow: hidden;
   padding: 40px 55px;
