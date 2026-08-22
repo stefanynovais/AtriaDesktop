@@ -9,7 +9,9 @@ function BottomBar() {
     <footer className="bottombar">
       <div className="bottombar-left">
         <img src={logo} alt="Atria" className="bottombar-logo" />
-        <button className="bottombar-about">Sobre nós</button>
+        <button className="bottombar-about" onClick={() => navigate('/sobre')}>
+          Sobre nós
+        </button>
       </div>
 
       <div className="bottombar-buttons">

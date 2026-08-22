@@ -6,7 +6,7 @@
 
 body {
   margin: 0;
-  color: white;
+  color: #E5E3F2;
   background-color: black;
 }
 
@@ -25,6 +25,7 @@ h1 {
   font-weight: bold;
   margin-top: 40px;
   font-size: 40px;
+  color: #E5E3F2;
 }
 
 .split-section {
@@ -188,6 +189,7 @@ h1 {
   position: relative;
   z-index: 1;
   max-width: 700px;
+  color: #E5E3F2;
 }
 
 .wave {
