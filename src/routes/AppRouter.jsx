@@ -6,6 +6,9 @@ import Info from '../pages/Info/Info';
 import Turmas from '../pages/Turmas/Turmas';
 import Landing from '../pages/Landing/Landing';
 import AboutUs from '../pages/AboutUs/AboutUs';
+import AccountType from '../pages/AccountType/AccountType';
+import CommonRegister from '../pages/CommonRegister/CommonRegister';
+import InstitutionalRegister from '../pages/InstitutionalRegister/InstitutionalRegister';
 import { Register } from '../pages/Register/Register';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
@@ -14,15 +17,15 @@ export const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* Rota inicial — abre quando a aplicação carrega */}
         <Route path="/" element={<Landing />} />
 
-        {/* Rotas públicas — acessíveis sem estar logado */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/sobre" element={<AboutUs />} />
+        <Route path="/tipo-de-conta" element={<AccountType />} />
+        <Route path="/common-register" element={<CommonRegister />} />
+        <Route path="/institutional-register" element={<InstitutionalRegister />} />
 
-        {/* Rotas protegidas — só acessíveis com login válido */}
         <Route
           path="/home"
           element={

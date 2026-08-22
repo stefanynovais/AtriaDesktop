@@ -18,7 +18,9 @@ function BottomBar() {
         <button className="bottombar-btn" onClick={() => navigate('/login')}>
           Login
         </button>
-        <button className="bottombar-btn">Sign Up</button>
+        <button className="bottombar-btn" onClick={() => navigate('/tipo-de-conta')}>
+          Sign Up
+        </button>
       </div>
 
       <p className="bottombar-alpha">ver. alpha</p>
