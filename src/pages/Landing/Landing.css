@@ -20,20 +20,30 @@ section {
   padding: 100px 20vw;
 }
 
+/* ==================== Títulos (padrão: Outfit) ==================== */
 h1 {
-  font-family: 'Rosting Gapertas', sans-serif;
-  font-weight: bold;
-  margin-top: 40px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
   font-size: 40px;
   color: #E5E3F2;
+  text-align: center;
+  margin-top: 40px;
 }
 
+/* Hero e CTA final usam 'Rosting Gapertas' */
+.topbg h1,
+.bottombg h1 {
+  font-family: 'Rosting Gapertas', sans-serif;
+  font-weight: bold;
+}
+
+/* ==================== Split ==================== */
 .split-section {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   gap: 60px;
-  text-align: left;
+  text-align: center;
 }
 
 .split-image {
@@ -46,8 +56,9 @@ h1 {
 .split-content {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   color: #200144;
+  text-align: center;
 }
 
 .split-content h1 {
@@ -56,6 +67,7 @@ h1 {
   color: #200144;
   font-size: 32px;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .split-reverse-stack {
@@ -67,35 +79,32 @@ h1 {
   align-items: center;
 }
 
-.purple {
-  background: #542bd7;
-}
+/* ==================== Cores ==================== */
+.purple      { background: #542bd7; }
+.white       { background: #e5e3f2; }
+.darkpurple  { background: #200144; }
+.blue        { background: #0b66fe; }
+.green       { background: #35c763; }
+.pink        { background: #ee2adc; }
 
-.white {
-  background: #e5e3f2;
-}
+/* ==================== Ajuste de cor do h1 por seção ==================== */
+.white h1        { color: #200144; }
+.darkpurple h1   { color: #E5E3F2; }
+.topbg h1        { color: #E5E3F2; }
+.bottombg h1     { color: #E5E3F2; }
 
-.darkpurple {
-  background: #200144;
-}
-
-.blue {
-  background: #0b66fe;
-}
-
-.green {
-  background: #35c763;
-}
-
-.pink {
-  background: #ee2adc;
-}
-
+/* ==================== Seção Hero ==================== */
 .topbg {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(to bottom, #200144, #300e72);
   overflow: hidden;
-  padding-top: 60px;
+  padding: 100px 20vw 0;
+  min-height: 100vh;
+  height: auto;
 }
 
 .topbg::before {
@@ -135,11 +144,59 @@ h1 {
 }
 
 .topbg h1,
-.topbg p {
+.topbg p,
+.topbg > *:not(.wave) {
   position: relative;
   z-index: 1;
 }
 
+/* ==================== Wave (no fluxo, no final da hero) ==================== */
+.topbg .wave {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: 80px;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 2;
+  pointer-events: none;
+  flex-shrink: 0;
+}
+
+.topbg .wave svg {
+  display: block;
+  width: 100%;
+  height: 173px;
+}
+
+.topbg .wave .shape-fill {
+  fill: #300e72;
+}
+
+/* ==================== Wave genérica (fallback) ==================== */
+.wave {
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.wave svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 173px;
+}
+
+.wave .shape-fill {
+  fill: #300e72;
+}
+
+/* ==================== Seção final (CTA) ==================== */
 .bottombg {
   position: relative;
   background: linear-gradient(to bottom, #e5e3f2, #542bd7, #200144);
@@ -190,24 +247,220 @@ h1 {
   z-index: 1;
   max-width: 700px;
   color: #E5E3F2;
+  text-align: center;
 }
 
-.wave {
-  position: absolute;
-  top: 0;
-  left: 0;
+/* ==================== Info sections ==================== */
+.info-section {
+  text-align: center;
+}
+
+.info-section h1 {
+  text-align: center;
+}
+
+.info-section p {
+  max-width: 700px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.darkpurple.info-section h1,
+.darkpurple.info-section p {
+  color: #E5E3F2;
+}
+
+.white.info-section h1,
+.white.info-section p {
+  color: #200144;
+}
+
+/* ==================== Funcionalidades ==================== */
+.features-grid {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 24px;
+  margin-top: 40px;
   width: 100%;
-  overflow: hidden;
-  line-height: 0;
+  max-width: 1100px;
+  overflow-x: auto;
 }
 
-.wave svg {
+/* 👇 cards agora com tom roxo translúcido (contraste sobre fundo branco) */
+.feature-card {
+  background: rgba(84, 43, 215, 0.08);
+  border: 1px solid rgba(84, 43, 215, 0.2);
+  border-radius: 16px;
+  padding: 24px;
+  flex: 1 1 0;
+  min-width: 180px;
+  max-width: 240px;
+}
+
+/* 👇 títulos dos cards em roxo escuro */
+.feature-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: #200144;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
+/* 👇 texto dos cards em roxo escuro */
+.feature-card p {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  color: #200144;
+  font-size: 13px;
+}
+
+/* Seção de funcionalidades com padding lateral reduzido
+   para dar mais espaço horizontal aos 4 cards lado a lado */
+.white.info-section {
+  padding-left: 8vw;
+  padding-right: 8vw;
+}
+
+/* ==================== Equipe ==================== */
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.team-card {
+  background: #542BD7;
+  border-radius: 16px;
+  padding: 24px;
+  width: 180px;
+}
+
+/* Nome do integrante — sempre em branco, mesmo dentro de .white */
+.team-card h3,
+.white .team-card h3,
+.info-section .team-card h3 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  color: #E5E3F2;
+  font-size: 16px;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+/* Função do integrante — também em branco */
+.team-card p,
+.white .team-card p,
+.info-section .team-card p {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  color: #E5E3F2;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ==================== Tecnologias ==================== */
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.tech-badge {
+  background: rgba(84, 43, 215, 0.15);
+  color: #200144;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(84, 43, 215, 0.3);
+}
+
+/* ==================== CTA (caso use) ==================== */
+.cta-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
   position: relative;
-  display: block;
-  width: calc(100% + 1.3px);
-  height: 173px;
+  z-index: 1;
 }
 
-.wave .shape-fill {
-  fill: #300e72;
+.cta-btn {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 12px 28px;
+  border-radius: 24px;
+}
+
+.cta-btn-primary {
+  background: #EE2ADC;
+  color: #E5E3F2;
+}
+
+.cta-btn-secondary {
+  background: transparent;
+  border: 1px solid #E5E3F2;
+  color: #E5E3F2;
+}
+
+/* ==================== Responsividade ==================== */
+@media (max-width: 900px) {
+  section {
+    padding: 80px 8vw;
+    min-height: auto;
+    height: auto;
+  }
+
+  .split-section {
+    flex-direction: column !important;
+    text-align: center;
+  }
+
+  .split-content {
+    align-items: center;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  .split-content h1 {
+    font-size: 24px;
+  }
+
+  .topbg {
+    padding: 80px 8vw 0;
+  }
+
+  .topbg .wave {
+    margin-top: 50px;
+  }
+
+  .topbg .wave svg,
+  .wave svg {
+    height: 100px;
+  }
+
+  /* Em telas pequenas, os cards rolam horizontalmente */
+  .features-grid {
+    justify-content: flex-start;
+    padding-bottom: 12px;
+  }
+
+  .feature-card {
+    flex: 0 0 200px;
+  }
 }

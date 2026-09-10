@@ -2,44 +2,39 @@ import './Landing.css';
 import TopBar from '../../components/TopBar/TopBar';
 import LiquidGlass from '../../components/LiquidGlass/LiquidGlass';
 import BottomBar from '../../components/BottomBar/BottomBar';
-import cardsImg from '../../assets/Cards.png';
-import miniTelaImg from '../../assets/Mini_tela.png';
-import moneyImg from '../../assets/money.png';
+
+const tecnologias = ['React', 'Vite', 'Node.js', 'Express', 'PostgreSQL', 'Prisma'];
+
+const equipe = [
+  { nome: 'Ana Júlia', funcao: 'Frontend e design' },
+  { nome: 'Luana Gabriella', funcao: 'Frontend, design e documentação' },
+  { nome: 'Stefany', funcao: 'Backend e circuito' },
+  { nome: 'Integrante 4', funcao: 'Backend e circuito' },
+];
 
 function Landing() {
   return (
     <>
       <TopBar />
 
+      {/* ==================== Hero ==================== */}
       <section className="topbg">
         <h1>
           Learn with
           <br />
           flashcards!
         </h1>
+
         <LiquidGlass>
           <p>
-            O uso de flashcards é uma técnica de estudo que trabalha com a memorização ativa,
-            permitindo revisões rápidas e eficazes. Já o Game Based Learning é uma abordagem
-            educacional que utiliza elementos de jogos digitais ou físicos para engajar, motivar e
-            facilitar a aquisição de conhecimento. O resultado da combinação dessas duas técnicas é
-            um ambiente onde o estudante pode revisar os conteúdos que escolher de sua própria
-            maneira, além de se divertir enquanto aprende, o que resulta na maximização do
-            aprendizado.
+            O Atria é uma plataforma gratuita de estudos que combina flashcards com aprendizagem
+            baseada em jogos. Nosso objetivo é oferecer uma ferramenta acessível para estudantes
+            autodidatas revisarem conteúdo próprio de forma ativa, dinâmica e no próprio ritmo,
+            sem depender de metodologias tradicionais e repetitivas de memorização.
           </p>
         </LiquidGlass>
-      </section>
 
-      <section className="white split-section">
-        <img src={cardsImg} alt="Flashcards" className="split-image" />
-        <div className="split-content">
-          <h1>Aprenda do seu jeito!</h1>
-          <p>
-            Com o Atria, é possível utilizar as técnicas de memorização com flashcards e retenção de
-            conteúdo através de jogos com o seu próprio material. Aprenda de forma dinâmica e no seu
-            próprio ritmo!
-          </p>
-        </div>
+        {/* Curva no FINAL da seção */}
         <div className="wave">
           <svg
             data-name="Layer 1"
@@ -55,29 +50,70 @@ function Landing() {
         </div>
       </section>
 
-      <section className="white split-section split-reverse-stack">
-        <img src={miniTelaImg} alt="Painel de progresso" className="split-image" />
-        <div className="split-content">
-          <h1>
-            Acompanhe seu progresso
-            <br />
-            com os Streaks!
-          </h1>
-        </div>
-      </section>
-
+      {/* ==================== Problema e solução ==================== */}
       <section className="white split-section">
-        <img src={moneyImg} alt="Economia" className="split-image" />
         <div className="split-content">
-          <h1>Livre de transações!</h1>
+          <h1>O problema e a solução:</h1>
           <p>
-            No Atria, não há barreiras para te impedir de atingir seu aprendizado personalizado
-            ideal, isso inclui barreiras financeiras, o site é 100% gratuiito, tendo como foco a
-            retenção de conteúdo do estudante e não o lucro.
+            Muitos estudantes autodidatas têm dificuldade em manter constância nos estudos e em
+            encontrar métodos de revisão que realmente fixem o conteúdo. Métodos tradicionais, como
+            releitura passiva de anotações, costumam ser pouco eficazes e desmotivantes, o que afeta
+            principalmente estudantes que precisam se preparar sozinhos e, na maioria das vezes,
+            não tem acesso a uma plataforma paga. Com o Atria, é possível utilizar as técnicas de
+            memorização com flashcards e retenção de conteúdo através de jogos com o seu próprio
+            material. Basta importar seu conteúdo e o Atria transforma em cartões de estudo prontos
+            para revisão ativa, no seu próprio ritmo.
           </p>
         </div>
       </section>
 
+      {/* ==================== Funcionalidades ==================== */}
+      <section className="white info-section">
+        <h1>Principais funcionalidades</h1>
+        <div className="features-grid">
+          <div className="feature-card">
+            <h3>Importação de conteúdo</h3>
+            <p>Importe arquivos .apkg e .txt e transforme em flashcards automaticamente.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Jogo da memória</h3>
+            <p>Revise pareando conceitos de forma lúdica e divertida.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Verdadeiro ou falso</h3>
+            <p>Teste seu conhecimento respondendo afirmações sobre o conteúdo estudado.</p>
+          </div>
+          <div className="feature-card">
+            <h3>Apresentação de cartões</h3>
+            <p>Revise no formato clássico de flashcards, cartão a cartão.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== Equipe ==================== */}
+      <section id="equipe" className="white info-section">
+        <h1>Nossa equipe</h1>
+        <div className="team-grid">
+          {equipe.map((membro) => (
+            <div key={membro.nome} className="team-card">
+              <h3>{membro.nome}</h3>
+              <p>{membro.funcao}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ==================== Tecnologias ==================== */}
+      <section className="white info-section">
+        <h1>Tecnologias utilizadas</h1>
+        <div className="tech-list">
+          {tecnologias.map((tech) => (
+            <span key={tech} className="tech-badge">{tech}</span>
+          ))}
+        </div>
+      </section>
+
+      {/* ==================== CTA final ==================== */}
       <section className="bottombg">
         <h1>
           Comece sua jornada de
