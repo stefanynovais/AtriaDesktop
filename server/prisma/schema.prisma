@@ -79,10 +79,11 @@ model Deck {
 }
 
 model Flashcard {
-  id     Int    @id @default(autoincrement())
-  front  String // pergunta / frente do card
-  back   String // resposta / verso do card
-  nivel  Nivel? // para não quebrar flashcards antigos sem nível 
+  id        Int    @id @default(autoincrement())
+  front     String // pergunta / frente do card
+  back      String // resposta / verso do card
+  nivel     Nivel? // para não quebrar flashcards antigos sem nível
+  imagemUrl String? // link de uma imagem (opcional), usado no exercício de relacionar imagem
 
   deckId Int
   deck   Deck @relation(fields: [deckId], references: [id], onDelete: Cascade)

@@ -29,7 +29,8 @@ export const flashcardService = {
         front: flashcardData.front,
         back: flashcardData.back,
         deckId: Number(flashcardData.deckId),
-        nivel: flashcardData.nivel || null, // NOVO — FACIL, MEDIO, DIFICIL ou null
+        nivel: flashcardData.nivel || null,
+        imagemUrl: flashcardData.imagemUrl || null, // link de imagem opcional
       },
     })
   },
@@ -47,6 +48,7 @@ export const flashcardService = {
         front: flashcardData.front,
         back: flashcardData.back,
         ...(flashcardData.nivel !== undefined ? { nivel: flashcardData.nivel } : {}),
+        ...(flashcardData.imagemUrl !== undefined ? { imagemUrl: flashcardData.imagemUrl } : {}),
       },
     })
   },
@@ -61,7 +63,6 @@ export const flashcardService = {
     await prisma.flashcard.delete({ where: { id: Number(id) } })
   },
 
-  // Busca flashcards do usuário cujo front OU back contenha o termo buscado
   buscar: async (termo, ownerId) => {
     if (!termo) return []
 
