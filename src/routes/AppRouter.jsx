@@ -1,18 +1,22 @@
-import Login from '../pages/Login/Login';
-import Home from '../pages/Home/Home';
-import Decks from '../pages/Decks/Decks';
-import Perfil from '../pages/Perfil/Perfil';
-import Info from '../pages/Info/Info';
-import Turmas from '../pages/Turmas/Turmas';
-import { Register } from '../pages/Register/Register';
+import Login from '../pages/Login/Login.jsx';
+import Home from '../pages/Home/Home.jsx';
+import Decks from '../pages/Decks/Decks.jsx';
+import Perfil from '../pages/Perfil/Perfil.jsx';
+import Turmas from '../pages/Turmas/Turmas.jsx';
+import SobrePage from '../pages/Sobre/SobrePage.jsx';
+import LandingPage from '../pages/LandingPage/LandingPage.jsx';
+import { Register } from '../pages/Register/Register.jsx';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 
 export const AppRouter = () => {
   return (
     <Router>
       <Routes>
+        {/* Rota pública inicial — a Landing Page */}
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/sobre" element={<SobrePage />} />
+
         {/* Rotas públicas — acessíveis sem estar logado */}
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
@@ -50,16 +54,6 @@ export const AppRouter = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/info"
-          element={
-            <ProtectedRoute>
-              <Info />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route path="/" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );
