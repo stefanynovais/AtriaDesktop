@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-.presentcards-page {
+.tof-page {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
@@ -13,7 +13,7 @@
   flex-direction: column;
 }
 
-.presentcards-stars-overlay {
+.tof-stars-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -23,7 +23,7 @@
   z-index: 0;
 }
 
-.presentcards-stars-overlay::before {
+.tof-stars-overlay::before {
   content: '';
   position: absolute;
   top: 0;
@@ -39,7 +39,7 @@
   opacity: 0.6;
 }
 
-.presentcards-stars-overlay::after {
+.tof-stars-overlay::after {
   content: '';
   position: absolute;
   top: 0;
@@ -55,7 +55,7 @@
   opacity: 1;
 }
 
-.presentcards-header {
+.tof-header {
   position: relative;
   z-index: 1;
   display: flex;
@@ -64,7 +64,7 @@
   margin-bottom: 20px;
 }
 
-.presentcards-back-btn {
+.tof-back-btn {
   background: transparent;
   border: none;
   color: #e5e3f2;
@@ -73,23 +73,23 @@
   transition: transform 0.2s ease;
 }
 
-.presentcards-back-btn:hover {
+.tof-back-btn:hover {
   transform: translateX(-4px);
 }
 
-.presentcards-titles {
+.tof-titles {
   flex: 1;
   text-align: left;
 }
 
-.presentcards-titles h1 {
+.tof-titles h1 {
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
   font-size: 26px;
   color: #e5e3f2;
 }
 
-.presentcards-titles p {
+.tof-titles p {
   font-family: 'Outfit', sans-serif;
   font-weight: 300;
   font-size: 15px;
@@ -98,61 +98,47 @@
   margin-top: 4px;
 }
 
-.presentcards-logo {
+.tof-logo {
   height: 200px;
   object-fit: contain;
 }
 
-.presentcards-content {
+.tof-content {
   position: relative;
   z-index: 1;
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 30px;
 }
 
-.presentcards-card {
+.tof-round {
   width: 100%;
-  max-width: 600px;
-  min-height: 260px;
-  background-color: #e5e3f2;
-  border-radius: 24px;
+  max-width: 700px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  text-align: center;
+  gap: 30px;
+  background-color: transparent;
+  border-radius: 24px;
   padding: 40px;
-  cursor: pointer;
-  user-select: none;
-  transition: transform 0.1s ease;
+  transition: box-shadow 0.3s ease;
 }
 
-.presentcards-card:active {
-  transform: scale(0.98);
+.tof-feedback-acertou {
+  box-shadow: 0 0 0 4px #35c763;
 }
 
-.presentcards-card p {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 600;
-  font-size: 28px;
-  color: #200144;
+.tof-feedback-errou {
+  box-shadow: 0 0 0 4px #ee2adc;
 }
 
-.presentcards-media-row {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.presentcards-image-box {
+.tof-image-box {
   flex: 1;
-  aspect-ratio: 1 / 0.8;
+  aspect-ratio: 1 / 1;
   border-radius: 16px;
-  background-color: rgba(229, 227, 242, 0.1);
+  background-color: rgba(229, 227, 242, 0.15);
   border: 2px dashed rgba(229, 227, 242, 0.4);
   display: flex;
   align-items: center;
@@ -160,81 +146,65 @@
   overflow: hidden;
 }
 
-.presentcards-image-box img {
+.tof-image-box img {
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.presentcards-image-placeholder {
+.tof-image-placeholder {
   font-family: 'Outfit', sans-serif;
   font-size: 14px;
   color: #e5e3f2;
   opacity: 0.6;
 }
 
-.presentcards-audio-column {
+.tof-words {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 40px;
+  justify-content: center;
+  gap: 12px;
 }
 
-.presentcards-audio-btn {
+.tof-word-original,
+.tof-word-translated {
   width: 100%;
-  height: 140px;
-  border-radius: 16px;
-  border: none;
-  background-color: #e5e3f2;
-  color: #35c763;
-  font-size: 28px;
-  cursor: pointer;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease;
+  text-align: center;
+  background-color: #e5e3f2;
+  border-radius: 16px;
+  padding: 0 16px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-.presentcards-audio-btn:hover {
-  transform: scale(1.05);
+.tof-word-original {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  color: #200144;
 }
 
-.presentcards-nav-buttons {
-  display: flex;
-  gap: 16px;
+.tof-word-translated {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  color: #200144;
 }
 
-.presentcards-nav-btn {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-  background-color: rgba(229, 227, 242, 0.15);
-  color: #e5e3f2;
-  font-size: 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-.presentcards-nav-btn:hover:not(:disabled) {
-  background-color: rgba(229, 227, 242, 0.3);
-  transform: scale(1.05);
-}
-
-.presentcards-nav-btn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.presentcards-progress {
+.tof-progress {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 10px;
 }
 
-.presentcards-progress-bar {
+.tof-progress-bar {
   width: 24px;
   height: 6px;
   border-radius: 3px;
@@ -242,16 +212,71 @@
   transition: all 0.2s ease;
 }
 
-.presentcards-progress-passed {
+.tof-progress-passed {
   opacity: 0.9;
 }
 
-.presentcards-progress-current {
+.tof-progress-current {
   opacity: 1;
   width: 36px;
   height: 8px;
 }
 
-.presentcards-progress-upcoming {
+.tof-progress-upcoming {
   opacity: 0.3;
+}
+
+.tof-answer-buttons {
+  display: flex;
+  gap: 30px;
+}
+
+.tof-answer-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.tof-answer-btn:hover {
+  transform: scale(1.05);
+}
+
+.tof-answer-btn:active {
+  transform: scale(0.95);
+}
+
+.tof-answer-btn img {
+  width: 140px;
+  height: auto;
+  display: block;
+  border-radius: 16px;
+}
+
+.tof-finished {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.tof-finished p {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: #e5e3f2;
+  text-align: center;
+}
+
+.tof-restart-btn {
+  background-color: #ee2adc;
+  color: #e5e3f2;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 28px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
 }

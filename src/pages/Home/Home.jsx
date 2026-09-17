@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DashboardLayout from "../../components/DashboardLayout/DashboardLayout";
+import DashboardLayout from '../../components/DashboardLayout/DashboardLayout';
 import logo from '../../assets/logo_atria_branca.png';
-import "./style.css";
+import './style.css';
 
-const decksRecentes = [ //apenas para teste do visual
+const decksRecentes = [
+  //apenas para teste do visual
   { id: 1, nome: 'Ingles_Frutas', importadoEm: '2026-08-30T14:00:00' },
   { id: 2, nome: 'Japones_Pronomes', importadoEm: '2026-08-28T10:00:00' },
   { id: 3, nome: 'Espanhol_Direcoes', importadoEm: '2026-08-25T09:00:00' },

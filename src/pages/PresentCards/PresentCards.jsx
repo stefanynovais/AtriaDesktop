@@ -14,7 +14,13 @@ const mockDeck = {
     { id: 2, frente: 'Banana', verso: 'Banana', imagem: null, audio: '/audio/banana.mp3' },
     { id: 3, frente: 'Strawberry', verso: 'Morango', imagem: '/img/strawberry.png', audio: null },
     { id: 4, frente: 'Grape', verso: 'Uva', imagem: null, audio: null },
-    { id: 5, frente: 'Orange', verso: 'Laranja', imagem: '/img/orange.png', audio: '/audio/orange.mp3' },
+    {
+      id: 5,
+      frente: 'Orange',
+      verso: 'Laranja',
+      imagem: '/img/orange.png',
+      audio: '/audio/orange.mp3',
+    },
   ],
 };
 
@@ -39,10 +45,9 @@ export default function PresentCards() {
   };
 
   const handlePlayAudio = () => {
-    if (cartaoAtual.audio) {
-      const audio = new Audio(cartaoAtual.audio);
-      audio.play();
-    }
+    if (!cartaoAtual.audio) return;
+    const audio = new Audio(cartaoAtual.audio);
+    audio.play();
   };
 
   return (
@@ -51,10 +56,7 @@ export default function PresentCards() {
         <div className="presentcards-stars-overlay"></div>
 
         <header className="presentcards-header">
-          <button
-            className="presentcards-back-btn"
-            onClick={() => navigate(`/games/${deckId}`)}
-          >
+          <button className="presentcards-back-btn" onClick={() => navigate(`/games/${deckId}`)}>
             ←
           </button>
 
@@ -88,11 +90,13 @@ export default function PresentCards() {
             </div>
 
             <div className="presentcards-audio-column">
-              {cartaoAtual.audio && (
-                <button className="presentcards-audio-btn" onClick={handlePlayAudio}>
-                  <FaVolumeUp />
-                </button>
-              )}
+              <button
+                className="presentcards-audio-btn"
+                onClick={handlePlayAudio}
+                style={{ visibility: cartaoAtual.audio ? 'visible' : 'hidden' }}
+              >
+                <FaVolumeUp />
+              </button>
 
               <div className="presentcards-nav-buttons">
                 <button

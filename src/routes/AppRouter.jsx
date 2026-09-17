@@ -15,6 +15,7 @@ import GamesScreen from '../pages/GamesScreen/GamesScreen';
 import PresentCards from '../pages/PresentCards/PresentCards';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
+import TrueOrFalse from '../pages/TrueOrFalse/TrueOrFalse';
 
 export const AppRouter = () => {
   return (
@@ -42,6 +43,14 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <Decks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/games/:deckId/verdadeiro-ou-falso"
+          element={
+            <ProtectedRoute>
+              <TrueOrFalse />
             </ProtectedRoute>
           }
         />
