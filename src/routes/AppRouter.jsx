@@ -16,6 +16,7 @@ import PresentCards from '../pages/PresentCards/PresentCards';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
 import TrueOrFalse from '../pages/TrueOrFalse/TrueOrFalse';
+import MemoryGame from '../pages/MemoryGame/MemoryGame';
 
 export const AppRouter = () => {
   return (
@@ -51,6 +52,14 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <TrueOrFalse />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/games/:deckId/jogo-da-memoria"
+          element={
+            <ProtectedRoute>
+              <MemoryGame />
             </ProtectedRoute>
           }
         />
