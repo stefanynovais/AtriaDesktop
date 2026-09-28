@@ -2,7 +2,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { LayoutComponents } from '../../components/LayoutComponents/LayoutComponents';
 import { useAuth } from '../../contexts/AuthContext';
-import { etecs } from '../../data/etecs';
 import './InstitutionalRegister.css';
 
 const InstitutionalRegister = () => {
@@ -21,7 +20,9 @@ const InstitutionalRegister = () => {
     setCarregando(true);
 
     try {
-      await registrar(nome, email, password, 'INSTITUCIONAL', codigoEtec);
+      // trim() tira espaços sem querer (comum em teclado de celular), porque
+      // o back compara o código exatamente
+      await registrar(nome, email, password, 'INSTITUCIONAL', codigoEtec.trim());
       navigate('/home');
     } catch (error) {
       setErro(error.response?.data?.message || 'Não foi possível criar a conta. Tente novamente.');
@@ -72,14 +73,12 @@ const InstitutionalRegister = () => {
 
               <div className="input-field-box">
                 <label>Código da ETEC</label>
-                <select value={codigoEtec} onChange={(e) => setCodigoEtec(e.target.value)}>
-                  <option value="">Selecione</option>
-                  {etecs.map((etec) => (
-                    <option key={etec.codigo} value={etec.codigo}>
-                      {etec.codigo} - {etec.nome}
-                    </option>
-                  ))}
-                </select>
+                <input
+                  type="text"
+                  value={codigoEtec}
+                  onChange={(e) => setCodigoEtec(e.target.value)}
+                  autoComplete="off"
+                />
               </div>
             </div>
           </div>

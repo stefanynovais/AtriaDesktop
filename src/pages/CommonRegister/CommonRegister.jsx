@@ -8,6 +8,7 @@ const CommonRegister = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [codigoEtec, setCodigoEtec] = useState('');
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
   const navigate = useNavigate();
@@ -19,7 +20,9 @@ const CommonRegister = () => {
     setCarregando(true);
 
     try {
-      await registrar(nome, email, password, 'COMUM');
+      // trim() tira espaços sem querer (comum em teclado de celular), porque
+      // o back compara o código exatamente
+      await registrar(nome, email, password, 'COMUM', codigoEtec.trim());
       navigate('/home');
     } catch (error) {
       setErro(error.response?.data?.message || 'Não foi possível criar a conta. Tente novamente.');
@@ -64,6 +67,16 @@ const CommonRegister = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  autoComplete="off"
+                />
+              </div>
+
+              <div className="input-field-box">
+                <label>Código da ETEC</label>
+                <input
+                  type="text"
+                  value={codigoEtec}
+                  onChange={(e) => setCodigoEtec(e.target.value)}
                   autoComplete="off"
                 />
               </div>

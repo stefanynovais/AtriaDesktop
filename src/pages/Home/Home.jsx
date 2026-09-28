@@ -1,35 +1,100 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DashboardLayout from '../../components/DashboardLayout/DashboardLayout';
+import api from '../../services/api';
 import logo from '../../assets/logo_atria_branca.png';
 import './style.css';
 
-const decksRecentes = [
-  //apenas para teste do visual
-  { id: 1, nome: 'Ingles_Frutas', importadoEm: '2026-08-30T14:00:00' },
-  { id: 2, nome: 'Japones_Pronomes', importadoEm: '2026-08-28T10:00:00' },
-  { id: 3, nome: 'Espanhol_Direcoes', importadoEm: '2026-08-25T09:00:00' },
-  { id: 4, nome: 'Alemao_Lugares', importadoEm: '2026-08-20T18:00:00' },
-  { id: 5, nome: 'Frances_Verbos', importadoEm: '2026-08-15T11:00:00' },
-];
+const MSG_SEM_CONEXAO = 'Não foi possível conectar ao servidor. Confira se a API está rodando.';
 
 export default function Home() {
+  const [decks, setDecks] = useState([]);
+  const [carregandoDecks, setCarregandoDecks] = useState(true);
+  const [erroDecks, setErroDecks] = useState('');
+  const [importando, setImportando] = useState(false);
+  const [mensagemImport, setMensagemImport] = useState('');
   const [busca, setBusca] = useState('');
   const navigate = useNavigate();
+
+  // Busca os decks do usuário logado assim que a tela abre
+  useEffect(() => {
+    const carregarDecks = async () => {
+      try {
+        const resposta = await api.get('/decks');
+        setDecks(resposta.data);
+      } catch (error) {
+        setErroDecks(
+          error.response
+            ? error.response.data?.message || 'Não foi possível carregar os decks.'
+            : MSG_SEM_CONEXAO,
+        );
+      } finally {
+        setCarregandoDecks(false);
+      }
+    };
+
+    carregarDecks();
+  }, []);
 
   const handleImportClick = () => {
     document.getElementById('import-file-input').click();
   };
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-    console.log('Arquivo selecionado:', file.name);
+  const handleFileChange = async (e) => {
+    const arquivo = e.target.files[0];
+    e.target.value = ''; // permite escolher o mesmo arquivo de novo depois
+    if (!arquivo) return;
+
+    setMensagemImport('');
+    setImportando(true);
+
+    try {
+      const formData = new FormData();
+      formData.append('arquivo', arquivo);
+      // usa o nome do arquivo (sem .apkg) como título do deck
+      formData.append('titulo', arquivo.name.replace(/\.apkg$/i, ''));
+
+      const resposta = await api.post('/importar/apkg', formData);
+      const { deck, totalFlashcardsImportados } = resposta.data;
+
+      setDecks((atuais) => [deck, ...atuais]);
+      setMensagemImport(
+        `Deck "${deck.title}" importado com ${totalFlashcardsImportados} flashcards.`,
+      );
+    } catch (error) {
+      setMensagemImport(
+        error.response
+          ? error.response.data?.message || 'Não foi possível importar o deck.'
+          : MSG_SEM_CONEXAO,
+      );
+    } finally {
+      setImportando(false);
+    }
   };
 
-  const decksFiltrados = decksRecentes
-    .filter((deck) => deck.nome.toLowerCase().includes(busca.toLowerCase()))
-    .sort((a, b) => new Date(b.importadoEm) - new Date(a.importadoEm));
+  const decksFiltrados = decks
+    .filter((deck) => deck.title.toLowerCase().includes(busca.toLowerCase()))
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  const renderizarLista = () => {
+    if (carregandoDecks) {
+      return <p className="home-recent-empty">Carregando decks...</p>;
+    }
+    if (erroDecks) {
+      return <p className="home-recent-empty">{erroDecks}</p>;
+    }
+    if (decks.length === 0) {
+      return <p className="home-recent-empty">Você ainda não importou nenhum deck.</p>;
+    }
+    if (decksFiltrados.length === 0) {
+      return <p className="home-recent-empty">Nenhum deck encontrado.</p>;
+    }
+    return decksFiltrados.map((deck) => (
+      <div key={deck.id} className="home-recent-item" onClick={() => navigate(`/games/${deck.id}`)}>
+        {deck.title}
+      </div>
+    ));
+  };
 
   return (
     <DashboardLayout hideHeader hideDots>
@@ -51,14 +116,16 @@ export default function Home() {
         </header>
 
         <div className="home-main-row">
-          <button className="home-import-btn" onClick={handleImportClick}>
+          <button className="home-import-btn" onClick={handleImportClick} disabled={importando}>
             <span className="home-import-plus">+</span>
-            <span className="home-import-label">Importar deck</span>
+            <span className="home-import-label">
+              {importando ? 'Importando...' : 'Importar deck'}
+            </span>
           </button>
           <input
             id="import-file-input"
             type="file"
-            accept=".apkg,.txt"
+            accept=".apkg"
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
@@ -68,24 +135,12 @@ export default function Home() {
           </div>
         </div>
 
+        {mensagemImport && <p className="home-recent-empty">{mensagemImport}</p>}
+
         <div className="home-recent-section">
           <h2>Recentes</h2>
 
-          <div className="home-recent-list">
-            {decksFiltrados.length > 0 ? (
-              decksFiltrados.map((deck) => (
-                <div
-                  key={deck.id}
-                  className="home-recent-item"
-                  onClick={() => navigate(`/games/${deck.id}`)}
-                >
-                  {deck.nome}
-                </div>
-              ))
-            ) : (
-              <p className="home-recent-empty">Nenhum deck encontrado.</p>
-            )}
-          </div>
+          <div className="home-recent-list">{renderizarLista()}</div>
         </div>
       </div>
     </DashboardLayout>
