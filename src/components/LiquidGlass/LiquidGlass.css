@@ -1,0 +1,38 @@
+.liquid-glass {
+  width: 1000px;
+  height: 250px;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column; /* pra empilhar h1 e p verticalmente */
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow: hidden;
+  border-radius: 28px;
+  transition: opacity 0.26s ease-out;
+  filter: drop-shadow(-8px -10px 46px #0000005f);
+  backdrop-filter: brightness(1.1) blur(2px) url(#displacementFilter);
+  position: relative;
+  z-index: 1;
+  margin-top: 40px;
+}
+
+.liquid-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow: inset 6px 6px 0px -6px rgba(255, 255, 255, 0.7),
+    inset 0 0 8px 1px rgba(255, 255, 255, 0.7);
+}
+
+.liquid-glass p {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+}

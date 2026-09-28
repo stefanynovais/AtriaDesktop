@@ -1,16 +1,21 @@
 .sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 80px;
   height: 100vh;
 
-   background: white;
+  background: white;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   padding: 25px 0;
-  border-radius: 98%;
+  border-radius: 0 20px 20px 0;
   border-right: 1px solid #e5e5e5;
+
+  z-index: 10;
 }
 
 .sidebar-top {
@@ -27,7 +32,7 @@
 }
 
 .sidebar a svg {
-   color: inherit;
+  color: inherit;
   transition: all 0.2s ease;
 }
 
@@ -42,14 +47,12 @@
   transition: all 0.2s ease;
 }
 
-
 .sidebar svg {
   font-size: 22px;
   cursor: pointer;
 }
 
-
 .sidebar a:hover {
-  color:#2fc509; 
+  color: #2fc509;
   transform: scale(1.1);
 }

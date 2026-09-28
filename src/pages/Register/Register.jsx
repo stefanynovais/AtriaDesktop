@@ -4,7 +4,7 @@ import starAtria from '../../assets/star.png';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
-export const Register = () => {
+const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
@@ -14,12 +14,11 @@ export const Register = () => {
   const { registrar } = useAuth();
 
   const handleRegister = async (e) => {
-    e.preventDefault(); // evita recarregar a página
+    e.preventDefault();
     setErro('');
     setCarregando(true);
 
     try {
-      // role "COMUM" = usuário comum/aluno (cadastro público)
       await registrar(name, email, password, 'COMUM');
       navigate('/home');
     } catch (error) {
@@ -87,3 +86,5 @@ export const Register = () => {
     </LayoutComponents>
   );
 };
+
+export default Register;

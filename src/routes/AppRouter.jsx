@@ -1,25 +1,35 @@
-import Login from '../pages/Login/Login.jsx';
-import Home from '../pages/Home/Home.jsx';
-import Decks from '../pages/Decks/Decks.jsx';
-import Perfil from '../pages/Perfil/Perfil.jsx';
-import Turmas from '../pages/Turmas/Turmas.jsx';
-import SobrePage from '../pages/Sobre/SobrePage.jsx';
-import LandingPage from '../pages/LandingPage/LandingPage.jsx';
-import { Register } from '../pages/Register/Register.jsx';
+// src/routes/AppRouter.jsx
+import Login from '../pages/Login/Login';
+import Home from '../pages/Home/Home';
+import Decks from '../pages/Decks/Decks';
+import Perfil from '../pages/Perfil/Perfil';
+import Info from '../pages/Info/Info';
+import Turmas from '../pages/Turmas/Turmas';
+import Landing from '../pages/Landing/Landing';
+import AboutUs from '../pages/AboutUs/AboutUs';
+import AccountType from '../pages/AccountType/AccountType';
+import CommonRegister from '../pages/CommonRegister/CommonRegister';
+import InstitutionalRegister from '../pages/InstitutionalRegister/InstitutionalRegister';
+import Register from '../pages/Register/Register';
+import GamesScreen from '../pages/GamesScreen/GamesScreen';
+import PresentCards from '../pages/PresentCards/PresentCards';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ProtectedRoute } from '../components/ProtectedRoute/ProtectedRoute';
+import TrueOrFalse from '../pages/TrueOrFalse/TrueOrFalse';
+import MemoryGame from '../pages/MemoryGame/MemoryGame';
 
 export const AppRouter = () => {
   return (
     <Router>
       <Routes>
-        {/* Rota pública inicial — a Landing Page */}
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/sobre" element={<SobrePage />} />
-
         {/* Rotas públicas — acessíveis sem estar logado */}
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
+        <Route path="/sobre" element={<AboutUs />} />
+        <Route path="/tipo-de-conta" element={<AccountType />} />
+        <Route path="/common-register" element={<CommonRegister />} />
+        <Route path="/institutional-register" element={<InstitutionalRegister />} />
 
         {/* Rotas protegidas — só acessíveis com login válido */}
         <Route
@@ -39,6 +49,22 @@ export const AppRouter = () => {
           }
         />
         <Route
+          path="/games/:deckId/verdadeiro-ou-falso"
+          element={
+            <ProtectedRoute>
+              <TrueOrFalse />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/games/:deckId/jogo-da-memoria"
+          element={
+            <ProtectedRoute>
+              <MemoryGame />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/turmas"
           element={
             <ProtectedRoute>
@@ -51,6 +77,30 @@ export const AppRouter = () => {
           element={
             <ProtectedRoute>
               <Perfil />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/info"
+          element={
+            <ProtectedRoute>
+              <Info />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/games/:deckId"
+          element={
+            <ProtectedRoute>
+              <GamesScreen />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/games/:deckId/apresentar-cartoes"
+          element={
+            <ProtectedRoute>
+              <PresentCards />
             </ProtectedRoute>
           }
         />

@@ -1,0 +1,257 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.presentcards-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 15px 60px 60px;
+  display: flex;
+  flex-direction: column;
+}
+
+.presentcards-stars-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.presentcards-stars-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/Stars Effect.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: invert(1) brightness(3);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+}
+
+.presentcards-stars-overlay::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../assets/Estrelas Acesas.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: invert(1) brightness(4.5) contrast(1.3);
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+.presentcards-header {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.presentcards-back-btn {
+  background: transparent;
+  border: none;
+  color: #e5e3f2;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.presentcards-back-btn:hover {
+  transform: translateX(-4px);
+}
+
+.presentcards-titles {
+  flex: 1;
+  text-align: left;
+}
+
+.presentcards-titles h1 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  color: #e5e3f2;
+}
+
+.presentcards-titles p {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
+  color: #e5e3f2;
+  opacity: 0.8;
+  margin-top: 4px;
+}
+
+.presentcards-logo {
+  height: 200px;
+  object-fit: contain;
+}
+
+.presentcards-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.presentcards-card {
+  width: 100%;
+  max-width: 600px;
+  min-height: 260px;
+  background-color: #e5e3f2;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.1s ease;
+}
+
+.presentcards-card:active {
+  transform: scale(0.98);
+}
+
+.presentcards-card p {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 28px;
+  color: #200144;
+}
+
+.presentcards-media-row {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.presentcards-image-box {
+  flex: 1;
+  aspect-ratio: 1 / 0.8;
+  border-radius: 16px;
+  background-color: rgba(229, 227, 242, 0.1);
+  border: 2px dashed rgba(229, 227, 242, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.presentcards-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.presentcards-image-placeholder {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  color: #e5e3f2;
+  opacity: 0.6;
+}
+
+.presentcards-audio-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.presentcards-audio-btn {
+  width: 100%;
+  height: 140px;
+  border-radius: 16px;
+  border: none;
+  background-color: #e5e3f2;
+  color: #35c763;
+  font-size: 28px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.presentcards-audio-btn:hover {
+  transform: scale(1.05);
+}
+
+.presentcards-nav-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.presentcards-nav-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(229, 227, 242, 0.15);
+  color: #e5e3f2;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.presentcards-nav-btn:hover:not(:disabled) {
+  background-color: rgba(229, 227, 242, 0.3);
+  transform: scale(1.05);
+}
+
+.presentcards-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.presentcards-progress {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.presentcards-progress-bar {
+  width: 24px;
+  height: 6px;
+  border-radius: 3px;
+  background-color: #e5e3f2;
+  transition: all 0.2s ease;
+}
+
+.presentcards-progress-passed {
+  opacity: 0.9;
+}
+
+.presentcards-progress-current {
+  opacity: 1;
+  width: 36px;
+  height: 8px;
+}
+
+.presentcards-progress-upcoming {
+  opacity: 0.3;
+}

@@ -13,6 +13,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../services/api';
 
 export const AuthContext = createContext(null);
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [carregando, setCarregando] = useState(true); // true enquanto verifica se já tem login salvo
@@ -49,8 +50,15 @@ export const AuthProvider = ({ children }) => {
     return resposta.data.user;
   };
 
-  const registrar = async (name, email, password, role) => {
-    const resposta = await api.post('/auth/register', { name, email, password, role });
+  const registrar = async (name, email, password, role, codigoEtec = null) => {
+    const payload = { name, email, password, role };
+
+    // Se for institucional e tiver código da ETEC, adiciona ao payload
+    if (role === 'INSTITUCIONAL' && codigoEtec) {
+      payload.codigoEtec = codigoEtec;
+    }
+
+    const resposta = await api.post('/auth/register', payload);
     localStorage.setItem('atria_token', resposta.data.token);
     setUser(resposta.data.user);
     return resposta.data.user;

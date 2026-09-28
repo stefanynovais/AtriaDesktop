@@ -1,20 +1,17 @@
-
 .dashboard {
   display: flex;
   min-height: 100vh;
+  background: linear-gradient(to bottom, #542bd7, #200144);
 }
 
 .content {
   flex: 1;
+  margin-left: 80px;
 
   position: relative;
   overflow: hidden;
 
-  background: linear-gradient(
-    to bottom,
-    #542BD7,
-    #200144
-  );
+  background: linear-gradient(to bottom, #542bd7, #200144);
 }
 
 .background-dots {
@@ -23,18 +20,11 @@
 
   pointer-events: none;
 
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,0.8) 1.5px, transparent 2px),
-    radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1.5px),
-    radial-gradient(circle, rgba(255,255,255,0.3) 2px, transparent 2.5px);
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.8) 1.5px, transparent 2px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.5) 1px, transparent 1.5px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.3) 2px, transparent 2.5px);
 
-  background-size:
-    120px 120px,
-    70px 70px,
-    180px 180px;
+  background-size: 120px 120px, 70px 70px, 180px 180px;
 
-  background-position:
-    0 0,
-    30px 40px,
-    80px 20px;
+  background-position: 0 0, 30px 40px, 80px 20px;
 }
