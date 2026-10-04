@@ -8,3 +8,13 @@ export const getStreak = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getCalendarioAtividade = async (req, res, next) => {
+  try {
+    const { meses } = req.query; // opcional, padrão 3
+    const calendario = await streakService.getCalendarioAtividade(req.user.id, meses);
+    res.json(calendario);
+  } catch (error) {
+    next(error);
+  }
+};

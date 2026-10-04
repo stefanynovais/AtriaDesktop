@@ -36,6 +36,7 @@ model User {
 
   // Streak (sequência de dias seguidos com pelo menos uma atividade)
   currentStreak    Int       @default(0)
+  longestStreak    Int       @default(0) // maior sequência que o usuário já teve
   lastActivityDate DateTime?
 
   // ... (o resto do model continua igual, não mexe)

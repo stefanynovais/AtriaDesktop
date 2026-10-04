@@ -162,6 +162,7 @@
   border-radius: 20px;
   background-color: #e5e3f2;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
@@ -240,4 +241,49 @@
 .home-recent-list::-webkit-scrollbar-thumb {
   background-color: rgba(229, 227, 242, 0.4);
   border-radius: 3px;
+}
+
+.home-stats-mes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.home-stats-mes-nome {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  color: #542bd7;
+  text-transform: capitalize;
+}
+
+.home-stats-grid-dias {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px;
+}
+
+.home-stats-dia {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  border: 1.3px solid #7352dc;
+  background: transparent;
+}
+
+.home-stats-dia.ativo {
+  background: #7352dc;
+  border-color: #7352dc;
+}
+
+.home-stats-rodape {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #542bd7;
 }
