@@ -14,6 +14,11 @@ import api from '../services/api';
 
 export const AuthContext = createContext(null);
 
+// O back só conhece dois perfis: COMUM e PROFESSOR.
+// No front, o perfil de professor aparece como "institucional".
+const traduzirPerfil = (role) =>
+  role === 'INSTITUCIONAL' || role === 'PROFESSOR' ? 'PROFESSOR' : 'COMUM';
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [carregando, setCarregando] = useState(true); // true enquanto verifica se já tem login salvo
@@ -31,9 +36,12 @@ export const AuthProvider = ({ children }) => {
       try {
         const resposta = await api.get('/auth/profile');
         setUser(resposta.data);
-      } catch {
-        // token inválido ou expirado, limpa tudo
-        localStorage.removeItem('atria_token');
+      } catch (error) {
+        // Só apaga o token se o back disse que ele é inválido ou expirou (401).
+        // Se a API estiver fora do ar, mantém o token pra tentar de novo depois.
+        if (error.response?.status === 401) {
+          localStorage.removeItem('atria_token');
+        }
         setUser(null);
       } finally {
         setCarregando(false);
@@ -51,10 +59,11 @@ export const AuthProvider = ({ children }) => {
   };
 
   const registrar = async (name, email, password, role, codigoEtec = null) => {
-    const payload = { name, email, password, role };
+    const payload = { name, email, password, role: traduzirPerfil(role) };
 
-    // Se for institucional e tiver código da ETEC, adiciona ao payload
-    if (role === 'INSTITUCIONAL' && codigoEtec) {
+    // Manda o código da ETEC sempre que ele existir; quem decide se ele é
+    // obrigatório é o back.
+    if (codigoEtec) {
       payload.codigoEtec = codigoEtec;
     }
 
