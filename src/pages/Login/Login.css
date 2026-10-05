@@ -76,6 +76,7 @@
   margin-bottom: 4px;
 }
 
+/* Estilo comum a campos de digitar (input) e a menus de lista (select) */
 .input-field-box input,
 .input-field-box select {
   border: none;
@@ -84,11 +85,20 @@
   font-family: 'Outfit', sans-serif;
   font-size: 15px;
   color: #200144;
-  cursor: pointer;
 
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+/* campo de digitar: sem seta, cursor de texto */
+.input-field-box input {
+  cursor: text;
+}
+
+/* menu de lista: é o único que tem a seta "⌄" */
+.input-field-box select {
+  cursor: pointer;
 
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23542BD7' stroke-width='2' fill='none' fill-rule='evenodd'/></svg>");
   background-repeat: no-repeat;

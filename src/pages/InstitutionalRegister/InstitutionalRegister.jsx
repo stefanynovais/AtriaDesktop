@@ -4,10 +4,11 @@ import { LayoutComponents } from '../../components/LayoutComponents/LayoutCompon
 import { useAuth } from '../../contexts/AuthContext';
 import './InstitutionalRegister.css';
 
+// Cadastro de professor: o código da ETEC é digitado (sem lista), igual ao Login.
 const InstitutionalRegister = () => {
   const [nome, setNome] = useState('');
-  const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [codigoEtec, setCodigoEtec] = useState('');
   const [erro, setErro] = useState('');
   const [carregando, setCarregando] = useState(false);
@@ -46,6 +47,7 @@ const InstitutionalRegister = () => {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
 
@@ -56,6 +58,7 @@ const InstitutionalRegister = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
             </div>
@@ -68,6 +71,7 @@ const InstitutionalRegister = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
 
@@ -78,6 +82,7 @@ const InstitutionalRegister = () => {
                   value={codigoEtec}
                   onChange={(e) => setCodigoEtec(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
             </div>

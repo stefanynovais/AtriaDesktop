@@ -4,6 +4,7 @@ import { LayoutComponents } from '../../components/LayoutComponents/LayoutCompon
 import { useAuth } from '../../contexts/AuthContext';
 import './CommonRegister.css';
 
+// Cadastro de aluno: o código da ETEC é digitado (sem lista), igual ao Login.
 const CommonRegister = () => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -46,6 +47,7 @@ const CommonRegister = () => {
                   value={nome}
                   onChange={(e) => setNome(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
 
@@ -56,6 +58,7 @@ const CommonRegister = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
             </div>
@@ -68,6 +71,7 @@ const CommonRegister = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
 
@@ -78,6 +82,7 @@ const CommonRegister = () => {
                   value={codigoEtec}
                   onChange={(e) => setCodigoEtec(e.target.value)}
                   autoComplete="off"
+                  required
                 />
               </div>
             </div>

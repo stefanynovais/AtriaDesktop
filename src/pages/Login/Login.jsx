@@ -2,7 +2,6 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { LayoutComponents } from '../../components/LayoutComponents/LayoutComponents';
 import { useAuth } from '../../contexts/AuthContext';
-import { etecs } from '../../data/etecs';
 import './Login.css';
 
 export const Login = () => {
@@ -64,18 +63,13 @@ export const Login = () => {
 
               <div className="input-field-box">
                 <label>Código da ETEC</label>
-                <select
+                <input
+                  type="text"
                   value={codigoEtec}
                   onChange={(e) => setCodigoEtec(e.target.value)}
-                  disabled={tipoConta !== 'institucional'}
-                >
-                  <option value="">Selecione</option>
-                  {etecs.map((etec) => (
-                    <option key={etec.codigo} value={etec.codigo}>
-                      {etec.codigo} - {etec.nome}
-                    </option>
-                  ))}
-                </select>
+                  autoComplete="off"
+                  required
+                />
               </div>
             </div>
           </div>
