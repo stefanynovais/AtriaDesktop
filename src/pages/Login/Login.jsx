@@ -2,6 +2,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { LayoutComponents } from '../../components/LayoutComponents/LayoutComponents';
 import { useAuth } from '../../contexts/AuthContext';
+import CampoSenha from '../../components/CampoSenha/CampoSenha';
 import './Login.css';
 
 export const Login = () => {
@@ -44,11 +45,7 @@ export const Login = () => {
 
               <div className="input-field-box">
                 <label>Senha</label>
-                <input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <CampoSenha value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
             </div>
 

@@ -1,0 +1,46 @@
+.campo-senha {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* espaço à direita pro texto não ficar por baixo do olho */
+.input-field-box .campo-senha input {
+  flex: 1;
+  min-width: 0;
+  padding-right: 30px;
+}
+
+.campo-senha-olho {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #542bd7;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.campo-senha-olho:hover {
+  color: #200144;
+}
+
+.campo-senha-olho:focus-visible {
+  outline: 2px solid #ee2adc;
+  outline-offset: 2px;
+}
+
+/* o Edge desenha um olho próprio em campos de senha; esconde pra não ficar dois */
+.campo-senha input::-ms-reveal,
+.campo-senha input::-ms-clear {
+  display: none;
+}

@@ -2,6 +2,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { LayoutComponents } from '../../components/LayoutComponents/LayoutComponents';
 import { useAuth } from '../../contexts/AuthContext';
+import CampoSenha from '../../components/CampoSenha/CampoSenha';
 import './InstitutionalRegister.css';
 
 // Cadastro de professor: o código da ETEC é digitado (sem lista), igual ao Login.
@@ -53,8 +54,7 @@ const InstitutionalRegister = () => {
 
               <div className="input-field-box">
                 <label>Senha</label>
-                <input
-                  type="password"
+                <CampoSenha
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="off"
