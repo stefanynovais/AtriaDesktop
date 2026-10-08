@@ -1,0 +1,258 @@
+/* Quiz físico (dia da Bentotec) — mesmo visual do site: roxo, lavanda e botões da paleta Atria. */
+
+.icone { width: 1em; height: 1em; fill: currentColor; display: inline-block; vertical-align: -0.125em; }
+
+/* ---------- topo ---------- */
+
+.topo {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 5;
+  pointer-events: none;
+}
+.topo > * { pointer-events: auto; }
+
+.logo { height: 58px; width: auto; aspect-ratio: 828.12 / 576.49; display: block; }
+
+.topo-direita { display: flex; align-items: center; gap: 12px; }
+
+.placar {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--lavanda);
+  color: var(--roxo-escuro);
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+.placar strong { color: var(--roxo); }
+
+.btn-som {
+  width: 40px; height: 40px;
+  border: none; border-radius: 50%;
+  background: rgba(229, 227, 242, 0.16);
+  color: var(--lavanda);
+  font-size: 1.05rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.btn-som:hover { background: rgba(229, 227, 242, 0.3); }
+
+/* ---------- telas ---------- */
+
+.tela {
+  position: relative;
+  width: 100%; height: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 90px 24px 32px;
+  z-index: 1;
+}
+.tela.ativa { display: flex; }
+
+h1 {
+  font-size: clamp(2rem, 4.4vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.12;
+  margin-bottom: 10px;
+  color: #fff;
+}
+h1 .destaque { color: var(--rosa); }
+
+.subtitulo {
+  max-width: 580px;
+  margin-bottom: 26px;
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--lavanda-texto);
+}
+
+/* ---------- botões (mesmo estilo dos botões da landing do site) ---------- */
+
+button { font-family: inherit; }
+
+.btn {
+  padding: 13px 32px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.btn:hover:not(:disabled) { transform: translateY(-2px); }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.btn-azul  { background: var(--azul); box-shadow: 0 5px 0 #063e9e; }
+.btn-verde { background: var(--verde); color: #0b3d1f; box-shadow: 0 5px 0 #1f7a3d; }
+.btn-rosa  { background: var(--rosa); box-shadow: 0 5px 0 #a6109c; }
+.btn-fantasma {
+  padding: 11px 26px;
+  background: transparent;
+  border: 2px solid rgba(229, 227, 242, 0.55);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--lavanda);
+}
+.btn-fantasma:hover:not(:disabled) { border-color: var(--rosa); color: #fff; }
+
+.acoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 26px; }
+
+.btn:focus-visible, .nivel:focus-visible, .btn-som:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ---------- tela de conexão ---------- */
+
+.painel {
+  width: min(500px, 100%);
+  padding: 28px;
+  border-radius: 16px;
+  background: var(--lavanda);
+  color: var(--roxo-escuro);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 13px;
+}
+.painel .icone-grande { font-size: 3rem; color: var(--roxo); }
+
+.status {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(84, 43, 215, 0.1);
+  color: #3c1fa0;
+  font-size: 0.95rem;
+  max-width: 100%;
+}
+.status.ok   { background: rgba(53, 199, 99, 0.2);  color: #14602c; }
+.status.erro { background: rgba(238, 42, 220, 0.14); color: #7d0f73; }
+.status.api  { font-size: 0.85rem; padding: 6px 12px; }
+
+.painel .btn-fantasma { border-color: var(--roxo); color: var(--roxo); }
+.painel .btn-fantasma:hover:not(:disabled) { background: rgba(84, 43, 215, 0.08); color: var(--roxo-escuro); }
+
+/* ---------- nível ---------- */
+
+.niveis { display: flex; justify-content: center; gap: 20px; width: min(760px, 100%); }
+.nivel {
+  flex: 1;
+  min-height: 140px;
+  padding: 16px;
+  border: none;
+  border-radius: 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+.nivel:hover { transform: scale(1.04); }
+.nivel strong { font-size: 1.5rem; }
+.nivel small { font-size: 0.88rem; }
+.nivel.facil   { background: var(--verde); color: #0b3d1f; }
+.nivel.medio   { background: var(--azul);  color: #fff; }
+.nivel.dificil { background: var(--rosa);  color: #fff; }
+
+/* ---------- pergunta ---------- */
+
+.tag {
+  padding: 6px 15px;
+  border-radius: 999px;
+  background: var(--lavanda);
+  color: var(--roxo-escuro);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.cronometro {
+  margin: 12px 0 10px;
+  font-size: clamp(3.6rem, 9vh, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  transition: color 0.2s ease;
+}
+.cronometro.tenso { color: #ff8adf; }
+.cronometro.batida { animation: batida 0.18s ease; }
+@keyframes batida { from { transform: scale(1.12); } to { transform: scale(1); } }
+
+.barra {
+  width: min(480px, 80%);
+  height: 8px;
+  border-radius: 5px;
+  background: rgba(229, 227, 242, 0.2);
+  overflow: hidden;
+  margin-bottom: clamp(16px, 4vh, 30px);
+}
+.barra-preenchida {
+  height: 100%; width: 100%;
+  border-radius: 5px;
+  background: var(--roxo-claro);
+  transition: width 1s linear, background-color 0.2s ease;
+}
+.barra.tenso .barra-preenchida { background: var(--rosa); }
+
+.par { width: min(560px, 100%); display: flex; flex-direction: column; gap: 12px; }
+.palavra {
+  padding: 18px 22px;
+  border-radius: 16px;
+  background: var(--lavanda);
+  color: var(--roxo-escuro);
+  font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.25;
+  min-height: 1.25em;
+  overflow-wrap: anywhere;
+}
+.palavra.traducao { font-weight: 500; color: #3c1fa0; transition: opacity 0.25s ease; }
+.palavra.oculta { opacity: 0.4; }   /* o verso ainda não apareceu: mostra um "?" apagado */
+
+.instrucao { margin-top: 18px; font-size: 0.98rem; color: var(--lavanda-texto); }
+
+.aviso {
+  margin-top: 20px;
+  padding: 14px 20px;
+  border-radius: 12px;
+  background: rgba(238, 42, 220, 0.2);
+  border: 1px solid rgba(238, 42, 220, 0.55);
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+}
+
+/* ---------- resultado / tempo esgotado / erro ---------- */
+
+.cartao-resultado {
+  width: min(500px, 100%);
+  padding: 30px 28px;
+  border-radius: 16px;
+  background: var(--lavanda);
+  color: var(--roxo-escuro);
+  box-shadow: inset 0 6px 0 var(--rosa);   /* faixa colorida no topo, reta mesmo com cantos arredondados */
+}
+.cartao-resultado.certo { box-shadow: inset 0 6px 0 var(--verde); }
+.cartao-resultado .icone-resultado { font-size: 3.7rem; margin-bottom: 8px; color: var(--rosa); }
+.cartao-resultado.certo .icone-resultado { color: #1f9c4a; }
+.cartao-resultado h2 { font-size: 2.1rem; margin-bottom: 6px; }
+.cartao-resultado p { color: #3c1fa0; line-height: 1.5; }
+
+@media (max-width: 720px) {
+  .topo { padding: 12px 14px; }
+  .logo { height: 46px; }
+  .niveis { flex-direction: column; width: min(320px, 100%); gap: 12px; }
+  .nivel { min-height: 84px; flex-direction: row; }
+  .tela { padding-top: 76px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cronometro.batida { animation: none; }
+  .barra-preenchida, .btn, .nivel, .palavra.traducao { transition: none; }
+}

@@ -1,0 +1,33 @@
+:root {
+  --roxo-escuro: #200144;
+  --roxo: #542bd7;
+  --roxo-claro: #7352dc;
+  --lavanda: #e5e3f2;
+  --lavanda-texto: #c9b8ee;
+  --verde: #35c763;
+  --azul: #0b66fe;
+  --rosa: #ee2adc;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body { width: 100%; height: 100%; overflow: hidden; }
+
+body {
+  font-family: 'Outfit', 'Segoe UI', Arial, sans-serif;
+  color: var(--lavanda);
+  background: linear-gradient(to bottom, #5028d9 0%, #3a1fa8 42%, #200144 100%);
+  position: relative;
+}
+
+/* bolhas translúcidas, como no fundo do site */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: url('./assets/bolhas.svg') center / cover no-repeat;
+  pointer-events: none;
+}
+
+#root, .quiz-pagina { width: 100%; height: 100%; position: relative; }
