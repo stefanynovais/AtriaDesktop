@@ -17,7 +17,7 @@ export const getAllDecks = async (req, res, next) => {
 export const getDeckById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const deck = await deckService.getDeckById(id, req.user.id);
+    const deck = await deckService.getDeckParaLeitura(id, req.user.id);
     res.json(deck);
   } catch (error) {
     next(error);

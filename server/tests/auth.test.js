@@ -62,16 +62,28 @@ describe('Auth', () => {
       const resposta = await request(app).post('/api/auth/login').send({
         email: emailValido,
         password: senha,
+        codigoEtec: '043',
       })
 
       expect(resposta.status).toBe(200)
       expect(resposta.body.token).toBeDefined()
     })
 
+    it('rejeita login sem o código da ETEC correto (401)', async () => {
+      const resposta = await request(app).post('/api/auth/login').send({
+        email: emailValido,
+        password: senha,
+        codigoEtec: '040',
+      })
+
+      expect(resposta.status).toBe(401)
+    })
+
     it('rejeita login com senha errada (401)', async () => {
       const resposta = await request(app).post('/api/auth/login').send({
         email: emailValido,
         password: 'senha-errada',
+        codigoEtec: '043',
       })
 
       expect(resposta.status).toBe(401)
@@ -85,6 +97,7 @@ describe('Auth', () => {
       const login = await request(app).post('/api/auth/login').send({
         email: emailValido,
         password: senha,
+        codigoEtec: '043',
       })
       token = login.body.token
     })

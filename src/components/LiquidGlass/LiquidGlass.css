@@ -1,6 +1,7 @@
 .liquid-glass {
   width: 1000px;
-  height: 250px;
+  max-width: calc(100% - 32px);
+  min-height: 250px;
   flex-wrap: wrap;
   display: flex;
   flex-direction: column; /* pra empilhar h1 e p verticalmente */
@@ -35,4 +36,8 @@
   text-align: center;
   color: #fff;
   margin: 0;
+}
+
+.liquid-glass p + p {
+  margin-top: 1rem;
 }

@@ -1,0 +1,50 @@
+.tfd-caixa {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 32px 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+}
+
+.tfd-pequeno {
+  font-size: 14px;
+  color: rgba(229, 227, 242, 0.85);
+}
+
+.tfd-deck {
+  font-size: 26px;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.tfd-texto {
+  font-size: 16px;
+  color: #e5e3f2;
+}
+
+.tfd-botao {
+  margin-top: 6px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 12px;
+  background-color: #542bd7;
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tfd-botao:hover {
+  background-color: #7352dc;
+}

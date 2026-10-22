@@ -6,6 +6,7 @@ import logo from '../../assets/logo_atria_branca.png';
 import certoImg from '../../assets/botao_certo.png';
 import erradoImg from '../../assets/botao_errado.png';
 import './TrueOrFalse.css';
+import TelaFimDeck from '../../components/TelaFimDeck/TelaFimDeck';
 
 const MSG_SEM_CONEXAO = 'Não foi possível conectar ao servidor. Confira se a API está rodando.';
 
@@ -154,14 +155,7 @@ export default function TrueOrFalse() {
     }
 
     if (finalizado) {
-      return (
-        <div className="tof-finished">
-          <p>Você concluiu todos os cartões deste deck!</p>
-          <button className="tof-restart-btn" onClick={() => navigate(`/games/${deckId}`)}>
-            Voltar aos modos de estudo
-          </button>
-        </div>
-      );
+      return <TelaFimDeck nomeDeck={tituloDeck} />;
     }
 
     return (

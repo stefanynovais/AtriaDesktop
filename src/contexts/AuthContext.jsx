@@ -51,8 +51,8 @@ export const AuthProvider = ({ children }) => {
     verificarLoginSalvo();
   }, []);
 
-  const login = async (email, password) => {
-    const resposta = await api.post('/auth/login', { email, password });
+  const login = async (email, password, codigoEtec) => {
+    const resposta = await api.post('/auth/login', { email, password, codigoEtec });
     localStorage.setItem('atria_token', resposta.data.token);
     setUser(resposta.data.user);
     return resposta.data.user;

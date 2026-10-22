@@ -6,12 +6,13 @@ import { prisma } from '../config/database.js';
 import { streakService } from './streak.service.js';
 
 export const respostaService = {
-  registrar: async (flashcardId, acertou, userId) => {
+  registrar: async (flashcardId, acertou, userId, { revisao = false } = {}) => {
     const resposta = await prisma.respostaFlashcard.create({
       data: {
         userId,
         flashcardId: Number(flashcardId),
         acertou: Boolean(acertou),
+        revisao,
       },
     });
 

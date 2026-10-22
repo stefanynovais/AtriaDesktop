@@ -27,6 +27,12 @@ function Landing() {
             maneira, além de se divertir enquanto aprende, o que resulta na maximização do
             aprendizado.
           </p>
+           <p>
+            O Atria foi pensado para estudantes de todas as idades, inclusive crianças em processo
+            de alfabetização e de aprendizagem. Também cuidamos da acessibilidade das cores,
+            pensando em pessoas autistas e com TDAH: escolhemos cores com bom contraste e evitamos
+            excesso de estímulos visuais, para deixar a tela mais calma e fácil de acompanhar.
+          </p>
         </LiquidGlass>
       </section>
 

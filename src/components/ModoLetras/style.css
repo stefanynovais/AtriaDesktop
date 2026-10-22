@@ -1,0 +1,124 @@
+/* Modo alfabetização: todo o texto do site em maiúsculas */
+body.modo-maiusculas,
+body.modo-maiusculas * {
+  text-transform: uppercase !important;
+}
+
+.ml-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(20, 0, 50, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.ml-caixa {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 440px;
+  padding: 26px 22px;
+  border-radius: 18px;
+  background: #fff;
+  color: #200144;
+  font-family: 'Outfit', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ml-titulo {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.ml-texto {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.ml-botoes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.ml-btn-principal,
+.ml-btn-secundario {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ml-btn-principal {
+  border: none;
+  background-color: #542bd7;
+  color: #fff;
+}
+
+.ml-btn-secundario {
+  border: 2px solid #542bd7;
+  background: transparent;
+  color: #542bd7;
+}
+
+.ml-btn-principal:disabled,
+.ml-btn-secundario:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ml-botao-area {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+
+.ml-botao {
+  position: relative;
+  padding: 10px 18px;
+  border: 2px solid #e5e3f2;
+  border-radius: 999px;
+  background: transparent;
+  color: #e5e3f2;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.ml-botao:hover {
+  background: #e5e3f2;
+  color: #200144;
+}
+
+.ml-botao::after {
+  content: attr(data-dica);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 240px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: #200144;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.ml-botao:hover::after {
+  opacity: 1;
+}

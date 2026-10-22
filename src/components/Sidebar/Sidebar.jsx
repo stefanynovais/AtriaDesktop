@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaHome, FaFolder, FaUser, FaInfoCircle } from "react-icons/fa";
+import { FaHome, FaFolder, FaGamepad, FaRedo, FaBook, FaUser, FaInfoCircle } from "react-icons/fa";
 
 import "./style.css";
 
@@ -14,6 +14,18 @@ export default function Sidebar() {
 
         <Link to="/decks">
           <FaFolder />
+        </Link>
+
+        <Link to="/jogos">
+          <FaGamepad />
+        </Link>
+
+        <Link to="/revisao-erros">
+          <FaRedo />
+        </Link>
+
+        <Link to="/decks-prontos">
+          <FaBook />
         </Link>
 
         <Link to="/perfil">

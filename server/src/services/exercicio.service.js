@@ -4,6 +4,9 @@
 // ou dado o áudio).
 
 import { prisma } from '../config/database.js'
+import { condicaoLeituraDeck } from './acesso.js'
+import { respostaService } from './resposta.service.js'
+import { randomUUID } from 'crypto'
 
 const sortear = (lista) => lista[Math.floor(Math.random() * lista.length)]
 
@@ -27,9 +30,18 @@ const normalizarTexto = (texto) => {
     .trim()
 }
 
-const buscarDeckComFlashcards = async (deckId, ownerId, nivel = null) => {
+// true se o usuário é aluno de uma turma com esse baralho vinculado
+const alunoDaTurmaDoDeck = async (deckId, userId) => {
+  const vinculo = await prisma.deck.findFirst({
+    where: { id: Number(deckId), ...condicaoLeituraDeck(userId) },
+    select: { id: true },
+  })
+  return Boolean(vinculo)
+}
+
+const buscarDeckComFlashcards = async (deckId, userId, nivel = null) => {
   const deck = await prisma.deck.findFirst({
-    where: { id: Number(deckId), ownerId },
+    where: { id: Number(deckId), ...condicaoLeituraDeck(userId) },
     include: { flashcards: nivel ? { where: { nivel } } : true },
   })
   if (!deck) {
@@ -38,7 +50,82 @@ const buscarDeckComFlashcards = async (deckId, ownerId, nivel = null) => {
   return deck
 }
 
+// Perguntas da revisão de erros (múltipla escolha) que estão esperando resposta.
+// Fica em memória: a resposta certa nunca vai para o navegador do aluno.
+const perguntasPendentes = new Map()
+const TEMPO_PARA_RESPONDER = 30 * 60 * 1000
+
+const limparPerguntasExpiradas = () => {
+  const agora = Date.now()
+  for (const [token, pergunta] of perguntasPendentes) {
+    if (pergunta.expiraEm < agora) perguntasPendentes.delete(token)
+  }
+}
+
 export const exercicioService = {
+  // Revisão de erros: sorteia uma palavra que o aluno errou na última vez
+  // e monta 4 opções (a certa + 3 de outras palavras do mesmo baralho).
+  gerarRevisaoMultipla: async (userId) => {
+    const respostas = await prisma.respostaFlashcard.findMany({
+      where: { userId },
+      include: { flashcard: true },
+      orderBy: { respondidoEm: 'desc' },
+    })
+    const ultimaRespostaPorFlashcard = new Map()
+    for (const r of respostas) {
+      if (!ultimaRespostaPorFlashcard.has(r.flashcardId)) ultimaRespostaPorFlashcard.set(r.flashcardId, r)
+    }
+    const errados = [...ultimaRespostaPorFlashcard.values()].filter((r) => !r.acertou).map((r) => r.flashcard)
+    if (errados.length === 0) {
+      throw new Error('Não há palavras para revisar no momento — continue assim! 🎉')
+    }
+
+    const cardBase = sortear(errados)
+    const outros = await prisma.flashcard.findMany({
+      where: { deckId: cardBase.deckId, id: { not: cardBase.id } },
+      select: { id: true, back: true },
+    })
+    const distratores = embaralhar(outros).slice(0, 3)
+    const opcoes = embaralhar([
+      { id: cardBase.id, texto: cardBase.back },
+      ...distratores.map((d) => ({ id: d.id, texto: d.back })),
+    ])
+
+    limparPerguntasExpiradas()
+    const token = randomUUID()
+    perguntasPendentes.set(token, {
+      userId,
+      flashcardId: cardBase.id,
+      expiraEm: Date.now() + TEMPO_PARA_RESPONDER,
+    })
+
+    return {
+      token,
+      front: cardBase.front,
+      imagemUrl: cardBase.imagemUrl || null,
+      opcoes,
+      totalPalavrasParaRevisar: errados.length,
+    }
+  },
+
+  responderRevisaoMultipla: async (token, escolhidoId, userId) => {
+    limparPerguntasExpiradas()
+    const pendente = perguntasPendentes.get(token)
+    if (!pendente || pendente.userId !== userId) {
+      throw new Error('Pergunta expirada. Atualize a página e tente de novo.')
+    }
+    perguntasPendentes.delete(token)
+
+    const acertou = Number(escolhidoId) === pendente.flashcardId
+    await respostaService.registrar(pendente.flashcardId, acertou, userId, { revisao: true })
+
+    const cartao = await prisma.flashcard.findUnique({
+      where: { id: pendente.flashcardId },
+      select: { back: true },
+    })
+    return { acertou, respostaCorreta: cartao.back }
+  },
+
   gerarCartoesClassicos: async (deckId, ownerId, nivel = null) => {
     const deck = await buscarDeckComFlashcards(deckId, ownerId, nivel)
     if (deck.flashcards.length === 0) throw new Error('O deck não tem flashcards')
@@ -91,7 +178,7 @@ export const exercicioService = {
 
   gerarRelacionarImagem: async (deckId, ownerId, quantidade = 6) => {
     const deck = await prisma.deck.findFirst({
-      where: { id: Number(deckId), ownerId },
+      where: { id: Number(deckId), ...condicaoLeituraDeck(ownerId) },
       include: { flashcards: { where: { imagemUrl: { not: null } } } },
     })
     if (!deck) throw new Error('Deck não encontrado')
@@ -190,7 +277,7 @@ export const exercicioService = {
       include: { deck: true },
     })
 
-    if (!flashcard || flashcard.deck.ownerId !== ownerId) {
+    if (!flashcard || !(flashcard.deck.ownerId === ownerId || await alunoDaTurmaDoDeck(flashcard.deckId, ownerId))) {
       throw new Error('Flashcard não encontrado')
     }
 

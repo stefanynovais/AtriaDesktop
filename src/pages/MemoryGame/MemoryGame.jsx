@@ -5,6 +5,7 @@ import api from '../../services/api';
 import logo from '../../assets/logo_atria_branca.png';
 import cardBack from '../../assets/card_virado.png';
 import './MemoryGame.css';
+import TelaFimDeck from '../../components/TelaFimDeck/TelaFimDeck';
 
 const MSG_SEM_CONEXAO = 'Não foi possível conectar ao servidor. Confira se a API está rodando.';
 
@@ -132,14 +133,7 @@ export default function MemoryGame() {
     }
 
     if (jogoConcluido) {
-      return (
-        <div className="mg-finished">
-          <p>Parabéns! Você encontrou todos os pares!</p>
-          <button className="mg-restart-btn" onClick={() => navigate(`/games/${deckId}`)}>
-            Voltar aos modos de estudo
-          </button>
-        </div>
-      );
+      return <TelaFimDeck nomeDeck={tituloDeck} />;
     }
 
     return (
@@ -195,4 +189,3 @@ export default function MemoryGame() {
     </DashboardLayout>
   );
 }
-

@@ -2,6 +2,7 @@
 // Contém regras de negócio e acesso ao banco SQL via Prisma.
 
 import { prisma } from '../config/database.js';
+import { condicaoLeituraDeck } from './acesso.js';
 
 export const deckService = {
   // "search" é opcional: se vier preenchido, filtra por título (sem
@@ -15,6 +16,18 @@ export const deckService = {
       include: { flashcards: true },
       orderBy: { createdAt: 'desc' },
     });
+  },
+
+  // leitura: dono OU aluno de turma com esse baralho vinculado
+  getDeckParaLeitura: async (id, userId) => {
+    const deck = await prisma.deck.findFirst({
+      where: { id: Number(id), ...condicaoLeituraDeck(userId) },
+      include: { flashcards: true },
+    });
+    if (!deck) {
+      throw new Error('Deck não encontrado');
+    }
+    return deck;
   },
 
   getDeckById: async (id, ownerId) => {

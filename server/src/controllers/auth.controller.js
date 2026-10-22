@@ -6,7 +6,7 @@ export const login = async (req, res, next) => {
     const result = await authService.login(credentials)
     res.status(200).json(result)
   } catch (error) {
-    if (error.message === 'Credenciais inválidas') {
+    if (error.message === 'Credenciais inválidas' || error.message === 'Código da ETEC inválido') {
       return res.status(401).json({ status: 'error', message: error.message })
     }
     next(error)

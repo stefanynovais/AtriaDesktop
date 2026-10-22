@@ -47,6 +47,19 @@ export const getRevisao = async (req, res, next) => {
   } catch (error) { next(error) }
 }
 
+export const getRevisaoMultipla = async (req, res, next) => {
+  try {
+    res.json(await exercicioService.gerarRevisaoMultipla(req.user.id))
+  } catch (error) { next(error) }
+}
+
+export const postRevisaoMultipla = async (req, res, next) => {
+  try {
+    const { token, escolhidoId } = req.body
+    res.json(await exercicioService.responderRevisaoMultipla(token, escolhidoId, req.user.id))
+  } catch (error) { next(error) }
+}
+
 export const getEscreverDefinicao = async (req, res, next) => {
   try {
     const { deckId } = req.params

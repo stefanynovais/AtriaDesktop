@@ -66,6 +66,7 @@ const login = async () => {
   const resposta = await axios.post(`${API_URL}/auth/login`, {
     email: API_EMAIL,
     password: API_PASSWORD,
+    codigoEtec: '043',
   })
   token = resposta.data.token
   console.log('[bridge] Login feito com sucesso na API')

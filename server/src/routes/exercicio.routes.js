@@ -9,6 +9,8 @@ import {
   getEscreverDefinicao,
   getEscreverAudio,
   postVerificarResposta,
+  getRevisaoMultipla,
+  postRevisaoMultipla,
 } from '../controllers/exercicio.controller.js'
 import { authMiddleware } from '../middlewares/auth.middleware.js'
 
@@ -17,6 +19,8 @@ const router = express.Router()
 router.use(authMiddleware)
 
 router.get('/revisao', getRevisao)
+router.get('/revisao-multipla', getRevisaoMultipla)
+router.post('/revisao-multipla/responder', postRevisaoMultipla)
 router.post('/escrever/verificar', postVerificarResposta)
 router.get('/escrever-definicao/:deckId', getEscreverDefinicao)
 router.get('/escrever-audio/:deckId', getEscreverAudio)

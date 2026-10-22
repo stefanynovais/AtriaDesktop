@@ -21,7 +21,7 @@ export const Login = () => {
     setCarregando(true);
 
     try {
-      await login(email, password);
+      await login(email, password, codigoEtec.trim());
       navigate('/home');
     } catch (error) {
       setErro(error.response?.data?.message || 'Não foi possível fazer login. Tente novamente.');

@@ -29,6 +29,11 @@ const paraDTO = (user) => ({
 
 export const authService = {
   login: async (credentials) => {
+    // o código da ETEC também é exigido no login, não só no cadastro
+    if (credentials.codigoEtec !== CODIGO_ETEC_VALIDO) {
+      throw new Error('Código da ETEC inválido')
+    }
+
     const user = await prisma.user.findUnique({
       where: { email: credentials.email },
     })

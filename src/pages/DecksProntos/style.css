@@ -1,0 +1,78 @@
+.dp-pagina {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 24px 16px 40px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  color: #fff;
+}
+
+.dp-coluna {
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.dp-voltar {
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  color: #e5e3f2;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.dp-titulo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.dp-intro {
+  text-align: center;
+  font-size: 14px;
+  color: rgba(229, 227, 242, 0.85);
+}
+
+.dp-mensagem {
+  text-align: center;
+  font-size: 14px;
+  color: #35c763;
+}
+
+.dp-item {
+  box-sizing: border-box;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+}
+
+.dp-item:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.dp-nome {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.dp-baixar {
+  padding: 8px 14px;
+  border-radius: 10px;
+  background-color: #e5e3f2;
+  color: #200144;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+}

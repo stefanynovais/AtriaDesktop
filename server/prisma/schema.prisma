@@ -39,6 +39,9 @@ model User {
   longestStreak    Int       @default(0) // maior sequência que o usuário já teve
   lastActivityDate DateTime?
 
+  // Modo de letras: "MAIUSCULAS" | "MISTO" | null (ainda não escolheu)
+  modoLetras       String?
+
   // ... (o resto do model continua igual, não mexe)
 
   // Decks importados por este usuário
@@ -169,6 +172,7 @@ model ResultadoExercicio {
 model RespostaFlashcard {
   id           Int      @id @default(autoincrement())
   acertou      Boolean
+  revisao      Boolean  @default(false) // true = respondida na página de revisão de erros
   respondidoEm DateTime @default(now())
 
   userId Int

@@ -5,6 +5,7 @@ import DashboardLayout from '../../components/DashboardLayout/DashboardLayout';
 import api from '../../services/api';
 import logo from '../../assets/logo_atria_branca.png';
 import './PresentCards.css';
+import { destinoAposJogo } from '../../services/destinoAposJogo';
 
 const MSG_SEM_CONEXAO = 'Não foi possível conectar ao servidor. Confira se a API está rodando.';
 
@@ -95,7 +96,7 @@ export default function PresentCards() {
       return (
         <>
           <p className="presentcards-status">{erro}</p>
-          <button className="presentcards-nav-btn" onClick={() => navigate('/home')}>
+          <button className="presentcards-nav-btn" onClick={async () => navigate(await destinoAposJogo())}>
             Voltar para os decks
           </button>
         </>
@@ -106,7 +107,7 @@ export default function PresentCards() {
       return (
         <>
           <p className="presentcards-status">Este deck ainda não tem flashcards.</p>
-          <button className="presentcards-nav-btn" onClick={() => navigate('/home')}>
+          <button className="presentcards-nav-btn" onClick={async () => navigate(await destinoAposJogo())}>
             Voltar para os decks
           </button>
         </>
