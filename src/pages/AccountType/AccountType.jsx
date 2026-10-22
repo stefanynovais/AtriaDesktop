@@ -1,8 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import './AccountType.css';
 
-import professorImg from '../../assets/conta professor.png';
-import comumImg from '../../assets/conta comum.png';
+import professorImg from '../../assets/Conta professor.png';
+import comumImg from '../../assets/Conta comum.png';
 
 function AccountType() {
   const navigate = useNavigate();
