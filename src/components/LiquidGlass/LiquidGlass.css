@@ -2,7 +2,7 @@
   width: 1000px;
   max-width: calc(100% - 32px);
   min-height: 250px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   display: flex;
   flex-direction: column; /* pra empilhar h1 e p verticalmente */
   align-items: center;
