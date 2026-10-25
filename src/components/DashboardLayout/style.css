@@ -28,3 +28,11 @@
 
   background-position: 0 0, 30px 40px, 80px 20px;
 }
+
+/* ===== Celular: conteúdo ocupa a tela toda, com espaço para a barra de baixo ===== */
+@media (max-width: 720px) {
+  .content {
+    margin-left: 0;
+    padding-bottom: 80px;
+  }
+}

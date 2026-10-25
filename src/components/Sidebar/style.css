@@ -56,3 +56,26 @@
   color: #2fc509;
   transform: scale(1.1);
 }
+
+/* ===== Celular: menu vira barra embaixo ===== */
+@media (max-width: 720px) {
+  .sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 64px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-radius: 20px 20px 0 0;
+    border-right: none;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .sidebar-top {
+    flex-direction: row;
+    gap: 22px;
+  }
+}
