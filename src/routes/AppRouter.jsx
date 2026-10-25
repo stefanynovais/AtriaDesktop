@@ -138,7 +138,9 @@ const router = createBrowserRouter(
         }
       />
     </>
-  )
+  ),
+  // Em produção (GitHub Pages) o site fica em /AtriaDesktop; em dev, BASE_URL é "/".
+  { basename: import.meta.env.BASE_URL.replace(/\/$/, '') || undefined }
 );
 
 export const AppRouter = () => {

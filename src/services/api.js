@@ -7,8 +7,10 @@
 
 import axios from 'axios';
 
+// Em produção, a URL do servidor vem da variável VITE_API_URL (definida no build).
+// Sem ela, usa o servidor local, então o desenvolvimento continua igual.
 const api = axios.create({
-  baseURL: 'http://localhost:4000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api',
 });
 
 // Roda ANTES de toda requisição sair. Pega o token salvo no localStorage
