@@ -47,6 +47,7 @@
   .liquid-glass {
     width: calc(100% - 32px);
     max-width: none;
+    height: auto;
     padding: 1.25rem;
   }
 
